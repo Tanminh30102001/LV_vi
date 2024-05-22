@@ -46,14 +46,13 @@ class RegisteredUserController extends Controller
                 'email.unique' => 'Email đã được sử dụng.',
                 'password.required' => 'Vui lòng nhập mật khẩu.',
                 'password.confirmed' => 'Mật khẩu xác nhận không khớp.',
-                // Thêm các quy tắc và thông báo tùy chỉnh khác nếu cần
             ]
         );
-    
+
             $user = User::create([
-                'name' => $request->name,
+                'ten' => $request->name,
                 'email' => $request->email,
-                'password' => Hash::make($request->password),
+                'mat_khau' => Hash::make($request->password),
             ]);
     
             event(new Registered($user));

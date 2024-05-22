@@ -39,13 +39,13 @@
                                     <thead> 
                                         <tr>
                                             <th> #</th>
-                                            <th> Image</th>
-                                            <th> Name</th>
-                                            <th> Stock</th>
-                                            <th> Price</th>
-                                            <th> Category</th>
-                                            <th> Date</th>
-                                            <th> Action</th>
+                                            <th> Ảnh</th>
+                                            <th> Tên</th>
+                                            <th> Tình trạng ở kho</th>
+                                            <th> Giá gốc </th>
+                                            <th> Danh mục</th>
+                                            <th> Ngày nhập</th>
+                                            <th> Hành động</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -57,10 +57,10 @@
                                                 {{-- <td> {{$item->id}}</td> --}}
                                                 <td>{{++$i}}.</td>
                                                 <td><img src="{{asset('assets/imgs/products')}}/{{$item->image}}" alt="{{$item->image}}" width='80px' height='70px'/></td>
-                                                <td> {{$item->name}}</td>
-                                                <td> {{$item->stock_status}}</td>
-                                                <td> {{$item->regular_price}}</td>
-                                                <td> {{$item->category->name}}</td>
+                                                <td> {{$item->ten}}</td>
+                                                <td> {{$item->trang_thai_ton_kho}}</td>
+                                                <td> {{$item->gia}}</td>
+                                                <td> {{$item->category->ten}}</td>
                                                 <td> {{$item->created_at}}</td>
                                                 <td><a href="{{route('admin.product.edit',['product_id'=>$item->id])}}" class="text-success ">Edit </a>
                                                     <a href="#" onclick="deleteConfirmation({{$item->id}})"  class="text-danger  ">Delete </a>

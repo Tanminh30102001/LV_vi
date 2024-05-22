@@ -7,38 +7,36 @@ use Livewire\Component;
 
 class AdminAddCouponComponent extends Component
 {
-    public $code;
-    public $type;
-    public $value;
-    public $cart_value;
+    public $ma_phieu;
+    public $loai;
+    public $gia_tri;
+    public $gia_tri_gio_hang;
     public $expiry_date;
     public $desc;
     public function updated($fields){
         $this->validateOnly($fields,[
-            'code'=>'required|unique:coupons',
-            'type'=>'required',
-            'value'=>'required|numeric',
-            'cart_value'=>'required|numeric',
+            'ma_phieu'=>'required|unique:phieu_giam_gia',
+            'loai'=>'required',
+            'gia_tri'=>'required|numeric',
+            'gia_tri_gio_hang'=>'required|numeric',
             'expiry_date'=>'required',
-            'desc'=>'required'
         ]);
     }
     public function storeCoupon(){
         $this->validate([
-            'code'=>'required|unique:coupons',
-            'type'=>'required',
-            'value'=>'required|numeric',
-            'cart_value'=>'required|numeric',
+            'ma_phieu'=>'required|unique:phieu_giam_gia',
+            'loai'=>'required',
+            'gia_tri'=>'required|numeric',
+            'gia_tri_gio_hang'=>'required|numeric',
             'expiry_date'=>'required',
-            'desc'=>'required'
         ]);
         $coupon = new Coupon();
-        $coupon->code=$this->code;
-        $coupon->type=$this->type;
-        $coupon->value=$this->value;
-        $coupon->cart_value=$this->cart_value;
+        $coupon->ma_phieu=$this->ma_phieu;
+        $coupon->loai=$this->loai;
+        $coupon->gia_tri=$this->gia_tri;
+        $coupon->gia_tri_gio_hang=$this->gia_tri_gio_hang;
         $coupon->expiry_date= $this->expiry_date;
-        $coupon->desc=$this->desc;
+        $coupon->mo_ta=$this->desc;
         $coupon->save();
         session()->flash('message','Coupon Added Successfully');
     }

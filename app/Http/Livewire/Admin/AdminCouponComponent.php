@@ -18,7 +18,7 @@ class AdminCouponComponent extends Component
     }
     public function render()
     {
-        $coupons=Coupon::orderBy('code','ASC')->paginate(5);
+        $coupons=Coupon::orderBy('ma_phieu','ASC')->paginate(5);
         return view('livewire.admin.admin-coupon-component',['coupons'=>$coupons]);
     }
 }

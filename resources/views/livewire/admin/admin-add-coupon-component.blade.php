@@ -28,33 +28,33 @@
                                 <form wire:submit.prevent="storeCoupon()"> 
                                     <div class="mb-3 mt-3">
                                         <label for="code" class="form-label">Mã phiếu</label>
-                                        <input type="text" name="code" class="form-control" placeholder="Nhập mã phiếu" wire:model="code" /> 
-                                        @error('code')
+                                        <input type="text" name="code" class="form-control" placeholder="Nhập mã phiếu" wire:model="ma_phieu" /> 
+                                        @error('ma_phieu')
                                         <p class="text-danger">{{$message}} </p>
                                         @enderror
                                     </div>
                                     <div class="mb-3 mt-3">
                                         <label for="type" class="form-label"> Loại phiếu</label>
-                                        <select class="form-control"name="type"wire:model="type">Chọn loại
+                                        <select class="form-control"name="type"wire:model="loai">Chọn loại
                                             <option >Chọn loại phiếu </option>
                                             <option value="fixed">Cố định</option> 
                                             <option value="percent">Phàn trăm</option>    
                                         </select> 
-                                        @error('type')
+                                        @error('loai')
                                         <p class="text-danger">{{$message}} </p>
                                         @enderror
                                     </div>
                                     <div class="mb-3 mt-3">
-                                        <label for="value" class="form-label">Giá trị phiéu</label>
-                                        <input type="text" name="value" class="form-control" placeholder=" Nhập Giá trị phiếu" wire:model="value"  >
-                                        @error('value')
+                                        <label for="gia_tri" class="form-label">Giá trị phiéu</label>
+                                        <input type="text" name="gia_tri" class="form-control" placeholder=" Nhập Giá trị phiếu" wire:model="gia_tri"  >
+                                        @error('gia_tri')
                                         <p class="text-danger">{{$message}} </p>
                                         @enderror
                                     </div>
                                     <div class="mb-3 mt-3">
                                         <label for="cart_value" class="form-label">Giá trị tối thiểu của giỏ hàng </label>
-                                        <input type="text" name="cart_value" class="form-control" placeholder="Nhập giá trị giỏ hàng" wire:model="cart_value" /> 
-                                        @error('cart_value')
+                                        <input type="text" name="cart_value" class="form-control" placeholder="Nhập giá trị giỏ hàng" wire:model="gia_tri_gio_hang" /> 
+                                        @error('gia_tri_gio_hang')
                                         <p class="text-danger">{{$message}} </p>
                                         @enderror
                                     </div>

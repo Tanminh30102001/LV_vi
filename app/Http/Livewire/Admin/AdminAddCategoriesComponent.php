@@ -43,12 +43,12 @@ class AdminAddCategoriesComponent extends Component
         }
         else{
             $category =new Category();
-            $category->name=$this->name;
+            $category->ten=$this->name;
             $category->slug=$this->slug;
             $imageName=Carbon::now()->timestamp.'.'.$this->image->extension();
             $this->image->storeAs('category',$imageName);
             $category->image=$imageName;
-            $category->is_popular=$this->is_popular;
+            $category->pho_bien=$this->is_popular;
             $category->save();
         }
        

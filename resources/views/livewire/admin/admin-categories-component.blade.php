@@ -55,12 +55,12 @@
                                                 {{-- <td> {{$item->id}}</td> --}}
                                                 <td>{{++$i}}.</td>
                                                 <td><img src="{{asset('assets/imgs/category')}}/{{$item->image}}" width='80px' height='70px'/></td>
-                                                <td> {{$item->name}}</td>
+                                                <td> {{$item->ten}}</td>
                                                 <td> {{$item->slug}}</td>
                                                 <td>
                                                     <ul>
                                                         @foreach($item->subCategories as $scategory)
-                                                        <li> {{$scategory->name}} <a href="{{route('admin.edit.category',['category_id'=>$item->id,'scategory_id'=>$scategory->id])}}">sửa</a>
+                                                        <li> {{$scategory->ten}} <a href="{{route('admin.edit.category',['category_id'=>$item->id,'scategory_id'=>$scategory->id])}}">sửa</a>
                                                             <a href="#" onclick="deleteSubCate({{$scategory->id}})"  class="text-danger  ">xóa </a></li>
                                                         @endforeach
                                                         

@@ -12,7 +12,7 @@
             <div class="container">
                 <div class="breadcrumb">
                     <a href="index.html" rel="nofollow">Home</a>
-                    <span></span> All Coupons
+                    <span></span> Tất cả phiếu giảm giá 
                   
                 </div>
             </div>
@@ -25,7 +25,7 @@
                             <div class="row">
                                 <div class="col-md-6"> Phiếu giảm giá </div>
                                 <div class="col-md-6">
-                                    <a href="{{route('admin.add.coupons')}}" class="btn btn-succsess float-end">Add new coupons </a>
+                                    <a href="{{route('admin.add.coupons')}}" class="btn btn-succsess float-end">Thêm mới phiếu giảm giá  </a>
                                 </div>
                             </div>
                         </div>
@@ -38,13 +38,13 @@
                                     <thead> 
                                         <tr>
                                             <th> #</th>
-                                            <th> Code</th>
-                                            <th> Type</th>
-                                            <th>Value</th>
-                                            <th>Cart Value</th>
-                                            <th>Expiry date</th>
-                                            <th> Desc</th>
-                                            <th>Action</th>
+                                            <th> Mã </th>
+                                            <th> Loại</th>
+                                            <th>Giá trị</th>
+                                            <th>giá trị giỏ hàng</th>
+                                            <th>Ngày hết hạn</th>
+                                            <th> Mô tả</th>
+                                            <th>Hành động</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -56,16 +56,16 @@
                                                 {{-- <td> {{$item->id}}</td> --}}
                                                 <td>{{++$i}}.</td>
                                                 
-                                                <td> {{$item->code}}</td>
-                                                <td> {{$item->type}}</td>
+                                                <td> {{$item->ma_phieu}}</td>
+                                                <td> {{$item->loai}}</td>
                                                 @if($item->type=='fixed')
-                                                <td> {{$item->value}}</td>
+                                                <td> {{$item->gia_tri}}</td>
                                                 @else
-                                                <td>%{{$item->value}} </td>
+                                                <td>%{{$item->gia_tri}} </td>
                                                 @endif
-                                                <td>{{$item->cart_value}} </td>
+                                                <td>{{$item->gia_tri_gio_hang}} </td>
                                                 <td> {{$item->expiry_date}}</td>
-                                                <td>{{$item->desc}} </td>
+                                                <td>{{$item->mo_ta}} </td>
                                                 <td><a href="{{route('admin.edit.coupons',['coupon_id'=>$item->id])}}" class="text-success">Edit </a>
                                                     <a href="#" onclick="deleteConfirmation({{$item->id}})"  class="text-danger  ">Delete </a>
                                                 </td>

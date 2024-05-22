@@ -59,7 +59,7 @@
                             <div class="header-info header-info-right">
                                 @auth
                                 <ul>                                
-                                    <li><i class="fi-rs-user"></i>{{Auth::user()->name}}  /
+                                    <li><i class="fi-rs-user"></i>{{Auth::user()->ten}}  /
                                         <form method="POST" action="{{route('logout')}}">
                                         @csrf 
                                         <a href="{{route('logout')}}" onclick="event.preventDefault(); this.closest('form').submit();">{{__('Đăng xuất ')}}</a> 
@@ -479,6 +479,7 @@
 
     @livewireScripts
     @stack('scripts')
+    
     </body>
 
     </html>

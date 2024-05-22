@@ -54,8 +54,8 @@ class AdminEditProductComponent extends Component
         $this->images =explode('-',$product->images);
         $this->category_id=$product->category_id;
         $this->scategory_id=$product->subcategory_id;
-        $this->inputs=$product->attributeValues->where('product_id',$product->id)->unique('product_attribute_id')->pluck('product_attribute_id');
-        $this->attr_array=$product->attributeValues->where('product_id',$product->id)->unique('product_attribute_id')->pluck('product_attribute_id');
+        // $this->inputs=$product->attributeValues->where('product_id',$product->id)->unique('product_attribute_id')->pluck('product_attribute_id');
+        // $this->attr_array=$product->attributeValues->where('product_id',$product->id)->unique('product_attribute_id')->pluck('product_attribute_id');
 
         foreach($this->attr_array as $a_arr){
             $allAttributeValue = AttributeValue::where('product_id',$product->id)->where('product_attribute_id',$a_arr)->get()->pluck('value');
@@ -67,12 +67,12 @@ class AdminEditProductComponent extends Component
 
         }
     }
-    public function addAttr(){
-        if(!$this->attr_array->contains($this->attr)){
-            $this->inputs->push($this->attr);
-            $this->attr_array->push($this->attr);
-        }
-    }
+    // public function addAttr(){
+    //     if(!$this->attr_array->contains($this->attr)){
+    //         $this->inputs->push($this->attr);
+    //         $this->attr_array->push($this->attr);
+    //     }
+    // }
     public function generateSlug() {
         $this->slug=Str::slug($this->name);
     }
@@ -89,21 +89,21 @@ class AdminEditProductComponent extends Component
             'stock_status'=>'required',
             'featured'=>'required',
             'quanity'=>'required',
-            'image'=>'required ',
+            // 'image'=>'required ',
             'category_id'=>'required'
 
         ]);
         $product= Product::find($this->product_id);
-        $product->name=$this->name;
+        $product->ten=$this->name;
         $product->slug=$this->slug;
-        $product->short_desc=$this->short_desc;
-        $product->desc=$this->desc;
-        $product->regular_price=$this->regular_price;
-        $product->sale_price=$this->sale_price;
-        $product->sku=$this->sku;
-        $product->stock_status=$this->stock_status;
+        $product->mieu_ta_ngan=$this->short_desc;
+        $product->mieu_ta=$this->desc;
+        $product->gia=$this->regular_price;
+        $product->gia_sale=$this->sale_price;
+        $product->so_hieu=$this->sku;
+        $product->trang_thai_ton_kho=$this->stock_status;
         $product->featured=$this->featured;
-        $product->quantity=$this->quanity;
+        $product->so_luong=$this->quanity;
         if($this->newImage){
             // unlink('assets/imgs/products/'.$product->image);
             $imageName = Carbon::now()->timestamp.'.'.$this->newImage->extension();
@@ -119,32 +119,36 @@ class AdminEditProductComponent extends Component
             }
         }
        
-        $imagesname=[];
-        foreach($this->newimages as $key=>$image){
-            $imgName = Carbon::now()->timestamp.$key.'.'.$image->extension();
-            $image->storeAs('products',$imgName);
-            // $imagesname .= $imagesname == '' ? $imgName : '-' . $imgName;
-            $imagesname[]='-'.$imgName;
+      
+        if(!empty($this->newimages)){
+            $imagesname=[];
+            foreach($this->newimages as $key=>$image){
+                $imgName = Carbon::now()->timestamp.$key.'.'.$image->extension();
+                $image->storeAs('products',$imgName);
+                // $imagesname .= $imagesname == '' ? $imgName : '-' . $imgName;
+                $imagesname[]=$imgName.'-';
+                $product->images=implode('-', $imagesname);
+            }
         }
         // $product->images= $imagesname;
-        $product->images=implode('-', $imagesname);
+        
         if($this->scategory_id){
             $product->subcategory_id=$this->scategory_id;
         }
         $product->category_id=$this->category_id;
         $product->save();
-        AttributeValue::where('product_id',$product->id)->delete();
-        foreach($this->attr_values as $key=>$attr_value)
-        {
-            $avalues=explode(",",$attr_value);
-            foreach($avalues as $avalue){
-                $attributevalue= new AttributeValue();
-                $attributevalue->product_attribute_id=$key;
-                $attributevalue->values=$avalue;
-                $attributevalue->product_id=$product->id;
-                $attributevalue->save();
-            }
-        }
+        // AttributeValue::where('product_id',$product->id)->delete();
+        // foreach($this->attr_values as $key=>$attr_value)
+        // {
+        //     $avalues=explode(",",$attr_value);
+        //     foreach($avalues as $avalue){
+        //         $attributevalue= new AttributeValue();
+        //         $attributevalue->product_attribute_id=$key;
+        //         $attributevalue->values=$avalue;
+        //         $attributevalue->product_id=$product->id;
+        //         $attributevalue->save();
+        //     }
+        // }
         session()->flash('message','Product has been updated');
         
     }
@@ -152,7 +156,7 @@ class AdminEditProductComponent extends Component
     {
         $scategories=Subcategory::where('category_id',$this->category_id)->get();
         $pattrs=ProductAttribute::all();
-        $categories=Category::orderBy('name','ASC')->get();
+        $categories=Category::orderBy('ten','ASC')->get();
         return view('livewire.admin.admin-edit-product-component',['categories'=>$categories,'pattrs'=>$pattrs,'scategories'=>$scategories]);
     }
 }

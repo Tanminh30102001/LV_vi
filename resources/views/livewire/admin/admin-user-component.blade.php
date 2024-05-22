@@ -16,13 +16,13 @@
                     <tr>
                         {{-- <th> </th> --}}
                         <th> user ID</th>
-                        <th> Name</th>
+                        <th> Tên</th>
                         <th>Email</th>
-                        <th>Address</th>
-                        <th>Phone Number</th>
-                        <th>Total Renuve</th>
-                        <th>quantity  orderd</th>
-                        <th>quantity canceled </th>
+                        <th>Địa chỉ</th>
+                        <th>SĐT</th>
+                        <th>Tổng tiền đã đặt</th>
+                        <th>Số đơn hàng đã đặt</th>
+                        <th>Số đơn hàng  đã hủy </th>
                         
                     </tr>
                 </thead>
@@ -35,10 +35,10 @@
                             {{-- <td> {{$item->id}}</td> --}}
                             {{-- <td>{{++$i}}.</td> --}}
                             <td>{{$item->id}}</td>
-                            <td>{{$item->name}}</td>
+                            <td>{{$item->ten}}</td>
                             <td>{{$item->email}}</td>
-                            <td> {{$item->address}}</td>
-                            <td>{{$item->phone}}</td>
+                            <td> {{$item->dia_chi}}</td>
+                            <td>{{$item->sdt}}</td>
                             <td>{{App\Models\Order::where('user_id',$item->id)->sum('tong_tien')}}</td>
                             <td>{{App\Models\Order::where('user_id',$item->id)->where('tinh_trang_giao_hang','delivered')->count()}}</td>
                             <td>{{App\Models\Order::where('user_id',$item->id)->where('tinh_trang_giao_hang','canceled')->count()}}</td>
