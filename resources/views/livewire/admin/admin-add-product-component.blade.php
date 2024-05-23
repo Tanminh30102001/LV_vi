@@ -137,7 +137,7 @@
                                         <select class="form-control" name="category_id" wire:model="category_id" wire:change="changeSubcategory">
                                             <option value="">Select Category</option>  
                                             @foreach ($categories as $category)
-                                                <option value="{{$category->id}}">{{$category->name}}</option>
+                                                <option value="{{$category->id}}">{{$category->ten}}</option>
                                             @endforeach
                                         </select>
                                         @error('category_id')
@@ -149,7 +149,7 @@
                                         <select class="form-control" name="subcategory_id" wire:model="subcategory_id">
                                             <option value="">None</option>  
                                             @foreach ($subcategories as $subcategory)
-                                                <option value="{{$subcategory->id}}">{{$subcategory->name}}</option>
+                                                <option value="{{$subcategory->id}}">{{$subcategory->ten}}</option>
                                             @endforeach
                                         </select>
                                     </div>

@@ -91,7 +91,7 @@
                                 </div>
                                 <div class="col-md-6 col-sm-12 col-xs-12">
                                     <div class="detail-info">
-                                        <h2 class="title-detail">{{$product->name}}</h2>
+                                        <h2 class="title-detail">{{$product->ten}}</h2>
                                         <div class="product-detail-rating">
                                             <div class="product-rate-cover text-end">
                                                 <div class="product-rate d-inline-block">
@@ -99,10 +99,10 @@
                                                         @php
                                                             $avg=0;
                                                         @endphp
-                                                        @foreach($product->orderDetails->where('rstatus',1) as $orderItem)
+                                                        @foreach($product->orderDetails->where('trang_thai_danh_gia',1) as $orderItem)
                                                             @php
-                                                            $totalRating = $product->orderDetails->where('rstatus',1)->pluck('review.rating')->sum();
-                                                            $numberOfRatings = $product->orderDetails->where('rstatus',1)->pluck('review.rating')->count(); 
+                                                            $totalRating = $product->orderDetails->where('trang_thai_danh_gia',1)->pluck('review.rating')->sum();
+                                                            $numberOfRatings = $product->orderDetails->where('trang_thai_danh_gia',1)->pluck('review.rating')->count(); 
                                                                 // $avg=$avg+$orderItem->review->rating;
                                                                 $avg = $numberOfRatings > 0 ? $totalRating / $numberOfRatings : 0;
                                                             @endphp
@@ -120,21 +120,21 @@
                                                             </div>
                                                     </div>
                                                 </div>
-                                                <span class="font-small ml-5 text-muted"> ({{$product->orderDetails->where('rstatus',1)->count()}} ) {{__('Đánh giá')}}</span>
+                                                <span class="font-small ml-5 text-muted"> ({{$product->orderDetails->where('trang_thai_danh_gia',1)->count()}} ) {{__('Đánh giá')}}</span>
                                             </div>
                                         </div>
                                         <div class="clearfix product-price-cover">
                                             <div class="product-price primary-color float-left">
-                                                <ins><span class="text-brand">{{$product->sale_price}}</span></ins>
-                                               <ins><span class="old-price font-md ml-15">{{$product->regular_price}}</span></ins>
+                                                <ins><span class="text-brand">{{$product->gia}} đ</span></ins>
+                                               <ins><span class="old-price font-md ml-15">{{$product->gia_sale}} đ</span></ins>
                                                 {{-- <span class="save-price  font-md color3 ml-15">25% Off</span> --}}
                                             </div>
                                         </div>
                                         <div class="bt-1 border-color-1 mt-15 mb-15"></div>
                                         <div class="short-desc mb-30">
-                                            <p>{{$product->short_desc}}</p>
+                                            <p>{{$product->mieu_ta_ngan}}</p>
                                         </div>
-                                        <div class="attr-detail attr-color mb-15">
+                                        {{-- <div class="attr-detail attr-color mb-15">
                                             @foreach($product->attributeValues->where('product_attribute_id',3)->unique('product_attribute_id') as $av)
                                             <strong class="mr-10">{{$av->productAttribute->name}}</strong>
                                             <ul class="list-filter color-filter">
@@ -153,7 +153,7 @@
                                                 @endforeach
                                             </ul>
                                             @endforeach
-                                        </div>
+                                        </div> --}}
                                         <div class="bt-1 border-color-1 mt-30 mb-30"></div>
                                         {{-- @if(session('chose_size_color') )
                                                 <div class="alert alert-warning" id="Alert-size">
@@ -162,14 +162,14 @@
                                         @endif --}}
                                         <div class="detail-extralink">   
                                             <div class="product-extra-link2">                                                                                                                                                                                                           
-                                                <button type="submit" class="button button-add-to-cart" wire:click.prevent="store({{$product->id}},'{{$product->name}}','{{$product->regular_price}}')"  @if(empty($sizes))onclick="showCustomToast()"  @endif >{{__('Thêm vào giỏ hàng')}}</button>
-                                                <a aria-label="Add To Wishlist" class="action-btn hover-up" href="#" wire:click.prevent="addToWishlist({{$product->id}},'{{$product->name}}','{{$product->regular_price}}')"><i class="fi-rs-heart"></i></a>
+                                                <button type="submit" class="button button-add-to-cart" wire:click.prevent="store({{$product->id}},'{{$product->ten}}','{{$product->gia}}')"  >{{__('Thêm vào giỏ hàng')}}</button>
+                                                <a aria-label="Add To Wishlist" class="action-btn hover-up" href="#" wire:click.prevent="addToWishlist({{$product->id}},'{{$product->ten}}','{{$product->gia}}')"><i class="fi-rs-heart"></i></a>
                                             </div>
                                         </div>
                                         <ul class="product-meta font-xs color-grey mt-50">
-                                            <li class="mb-5">SKU: <a href="#">{{$product->SKU}}</a></li>
+                                            <li class="mb-5">SKU: <a href="#">{{$product->so_hieu}}</a></li>
                                             {{-- <li class="mb-5">Tags: <a href="#" rel="tag">Cloth</a>, <a href="#" rel="tag">Women</a>, <a href="#" rel="tag">Dress</a> </li> --}}
-                                            <li>{{__('Số lượng hiện có')}}:<span class="in-stock text-success ml-5">{{$product->quantity}}</span></li>
+                                            <li>{{__('Số lượng hiện có')}}:<span class="in-stock text-success ml-5">{{$product->so_luong}}</span></li>
                                         </ul>
                                     </div>
                                     <!-- Detail Info -->
@@ -184,12 +184,12 @@
                                         <a class="nav-link" id="Additional-info-tab" data-bs-toggle="tab" href="#Additional-info">{{__('Thông tin thêm')}}</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="Reviews-tab" data-bs-toggle="tab" href="#Reviews">{{__("Đánh giá")}} ({{$product->orderDetails->where('rstatus',1)->count()}})</a>
+                                        <a class="nav-link" id="Reviews-tab" data-bs-toggle="tab" href="#Reviews">{{__("Đánh giá")}} ({{$product->orderDetails->where('trang_thai_danh_gia',1)->count()}})</a>
                                     </li>
                                 </ul>
                                 <div class="tab-content shop_info_tab entry-main-content">
                                     <div class="tab-pane fade show active" id="Description">
-                                        {{$product->desc}}
+                                        {{$product->mieu_ta}}
                                     </div>
                                     <div class="tab-pane fade" id="Additional-info">
                                         <table class="font-md">
@@ -240,7 +240,7 @@
                                                 <div class="col-lg-8">
                                                     <h4 class="mb-30">{{__('Đánh giá của các khách hàng đã mua')}}</h4>
                                                     <div class="comment-list">
-                                                        @foreach($product->orderDetails->where('rstatus',1) as $orderItem)
+                                                        @foreach($product->orderDetails->where('trang_thai_danh_gia',1) as $orderItem)
                                                             @if ($orderItem->review)
                                                                 <div class="single-comment justify-content-between d-flex">
                                                                     <div class="user justify-content-between d-flex">
@@ -297,7 +297,7 @@
                                                 <div class="product-img-action-wrap">
                                                     <div class="product-img product-img-zoom">
                                                         <a href="{{route('product.details',['slug'=>$rproduct->slug])}}" tabindex="0">
-                                                            <img class="default-img" src="{{asset('assets/imgs/products')}}/{{$rproduct->image}}" alt="{{$rproduct->name}}">
+                                                            <img class="default-img" src="{{asset('assets/imgs/products')}}/{{$rproduct->image}}" alt="{{$rproduct->ten}}">
                                                             <img class="hover-img" src="{{asset('assets/imgs/products')}}/{{$rproduct->image}}" alt="">
                                                         </a>
                                                     </div>
@@ -311,13 +311,13 @@
                                                     </div>
                                                 </div>
                                                 <div class="product-content-wrap">
-                                                    <h2><a href="{{route('product.details',['slug'=>$rproduct->slug])}}" tabindex="0">{{$rproduct->name}}</a></h2>
+                                                    <h2><a href="{{route('product.details',['slug'=>$rproduct->slug])}}" tabindex="0">{{$rproduct->ten}}</a></h2>
                                                     <div class="rating-result" title="90%">
                                                         <span>
                                                         </span>
                                                     </div>
                                                     <div class="product-price">
-                                                        <span>{{$rproduct->regular_price}} </span>
+                                                        <span>{{$rproduct->gia}} </span>
                                                     </div>
                                                 </div>
                                             </div>                        
@@ -335,7 +335,7 @@
                             <h5 class="section-title style-1 mb-30 wow fadeIn animated">{{__('Danh mục')}}</h5>
                             <ul class="categories">
                                 @foreach($categories as $category)
-                                <li><a href="{{route('product.category',['slug'=>$category->slug])}}">{{$category->name}}</a></li>
+                                <li><a href="{{route('product.category',['slug'=>$category->slug])}}">{{$category->ten}}</a></li>
                                 @endforeach
                                
                                 
@@ -397,8 +397,8 @@
                                     <img src="{{asset('assets/imgs/products')}}/{{$nproduct->image}}" alt="#">
                                 </div>
                                 <div class="content pt-10">
-                                    <h5><a href="{{route('product.details',['slug'=>$rproduct->slug])}}">{{$nproduct->name}}</a></h5>
-                                    <p class="price mb-0 mt-5">{{$nproduct->regular_price}}</p>
+                                    <h5><a href="{{route('product.details',['slug'=>$nproduct->slug])}}">{{$nproduct->ten}}</a></h5>
+                                    <p class="price mb-0 mt-5">{{$nproduct->gia}}</p>
                                     <div class="product-rate">
                                         <div class="product-rating" style="width:90%"></div>
                                     </div>

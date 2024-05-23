@@ -11,13 +11,13 @@ class Product extends Model
     protected $table="san_phams";
     public function category()
     {
-        return $this->belongsTo(Category::class,'category_id');
+        return $this->belongsTo(Category::class,'danh_muc_id');
     }
     public function orderDetails(){
-        return $this->hasMany(OrderDetails::class,'product_id');
+        return $this->hasMany(OrderDetails::class,'san_pham_id');
     }
     public function subCategories(){
-        return $this->belongsTo(Subcategory::class,'subcategory_id');
+        return $this->belongsTo(Subcategory::class,'subdanh_muc_id');
     }
     public function attributeValues(){
         return $this->hasMany(AttributeValue::class,'product_id');

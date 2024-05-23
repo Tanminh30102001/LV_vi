@@ -91,7 +91,7 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <input type="text" required="" name="name" placeholder="{{ Auth::user()->name }}" wire:model="user_name"  @auth value="{{ Auth::user()->name }}" readonly @endauth/>
+                                <input type="text" required="" name="name" placeholder="{{ Auth::user()->ten }}" wire:model="user_name"  @auth value="{{ Auth::user()->ten }}" readonly @endauth/>
                                 @error('user_name')
                                      <p class="text-danger">{{$message}} </p>
                                  @enderror

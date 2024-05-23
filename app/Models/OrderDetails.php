@@ -10,12 +10,12 @@ class OrderDetails extends Model
     use HasFactory;
     protected $table="don_hang_chi_tiet";
     public function order(){
-        return $this->belongsTo(Order::class);
+        return $this->belongsTo(Order::class,'don_hang_id');
     }
     public function product(){
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(Product::class,'san_pham_id');
     }
     public function review(){
-        return $this->hasOne(Review::class,'order_detail_id');
+        return $this->hasOne(Review::class,'don_hang_detail_id');
     }
 }

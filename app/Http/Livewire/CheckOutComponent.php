@@ -84,32 +84,32 @@ class CheckOutComponent extends Component
         $order->user_id = Auth::user()->id;
         // $order->total=str_replace(',','',Cart::instance('cart')->total()) ;
         // $order->total=session()->get('checkout')['total'];
-        $order->total = str_replace(',', '', session()->get('checkout')['total']);
-        $order->code = rand(1000, 999999999);
-        $order->discount = session()->get('checkout')['discount'];
+        $order->tong_tien = str_replace(',', '', session()->get('checkout')['total']);
+        $order->ma_don_hang = rand(1000, 999999999);
+        $order->giam_gia = session()->get('checkout')['discount'];
         $order->email = Auth::user()->email;
-        $order->user_name =Auth::user()->name;
-        $order->user_phone = $this->user_phone;
-        $order->user_address = $this->user_address;
-        $order->notes = $this->notes;
-        $order->status = false;
+        $order->user_ten =Auth::user()->ten;
+        $order->user_sdt = $this->user_phone;
+        $order->user_diachi = $this->user_address;
+        $order->ghi_chu = $this->notes;
+        $order->trang_thai = false;
         $this->process = true;
         $order->save();
         foreach (Cart::instance('cart')->content() as $item) {
             $orderDetails = new OrderDetails();
 
-            $orderDetails->product_id = $item->id;
-            $orderDetails->order_id = $order->id;
-            $orderDetails->regular_price = $item->price;
-            $orderDetails->quantity = $item->qty;
-            $product = Product::find($orderDetails->product_id);
-            $product->quantity = $product->quantity - $orderDetails->quantity;
-            $option = [
-                'color' => $item->options->color,
-                'size' => $item->options->size
-            ];
+            $orderDetails->san_pham_id = $item->id;
+            $orderDetails->don_hang_id = $order->id;
+            $orderDetails->gia_tien = $item->price;
+            $orderDetails->so_luong = $item->qty;
+            $product = Product::find($orderDetails->san_pham_id);
+            $product->so_luong = $product->so_luong - $orderDetails->so_luong;
+            // $option = [
+            //     'color' => $item->options->color,
+            //     'size' => $item->options->size
+            // ];
 
-            $orderDetails->options = json_encode($option);;
+            // $orderDetails->options = json_encode($option);;
 
             $product->save();
             $orderDetails->save();
@@ -119,7 +119,7 @@ class CheckOutComponent extends Component
         // $order_id=$order->id;
         // $orderD =OrderDetails::where('order_id',$order_id)->get();
 
-        Mail::to($order->email)->send(new confirmOrderMail($order));
+        // Mail::to($order->email)->send(new confirmOrderMail($order));
         Cart::instance('cart')->destroy();
         session()->flash('message', 'Orderd successfully');
         return redirect(route('thankyou'));

@@ -13,6 +13,22 @@ class Order extends Model
         return $this->belongsTo(User::class);
     }
     public function orderDetails(){
-        return $this->hasMany(OrderDetails::class);
+        return $this->hasMany(OrderDetails::class,'don_hang_id');
+    }
+    public function translateTinhTrangGiaoHang($value){
+        switch ($value) {
+            case 'ordered':
+                return 'Đã đặt hàng';
+            case 'accepted':
+                return 'Đã chấp nhận';
+            case 'delivering':
+                return 'Đang giao hàng';
+            case 'delivered':
+                return 'Đã giao hàng';
+            case 'canceled':
+                return 'Đã hủy';
+            default:
+                return $value;
+        }
     }
 }

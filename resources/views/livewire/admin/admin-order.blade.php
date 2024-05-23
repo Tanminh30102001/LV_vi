@@ -12,7 +12,7 @@
             <div class="container">
                 <div class="breadcrumb">
                     <a href="index.html" rel="nofollow">Home</a>
-                    <span></span> All Order
+                    <span></span> Tất cả đơn hàng 
                   
                 </div>
             </div>
@@ -23,7 +23,7 @@
                     <div class="col-12">
                         <div class="card-header">
                             <div class="row">
-                                <div class="col-md-6">All Order</div>
+                                <div class="col-md-6">Tất cả đơn hàng </div>
                                 <div class="col-md-6">                      
                                 </div>
                             </div>
@@ -36,13 +36,13 @@
                                     <thead> 
                                         <tr>
                                             <th> #</th>
-                                            <th> Order ID</th>
-                                            <th> Status</th>
-                                            <th>Status of Delivery</th>
-                                            <th>Total</th>
-                                            <th>Action</th>
-                                            <th>Update Status</th>
-                                            <th>Update Delivery</th>
+                                            <th> Mã đơn hàng </th>
+                                            <th> Tình trạng đơn hàng</th>
+                                            <th>Tình trạng giao hàng</th>
+                                            <th>Tổng tiền </th>
+                                            <th>Hành động</th>
+                                            <th>Cập nhập đơn hàng </th>
+                                            <th>Cập nhập trình trạng giao hàng</th>
                                             
                                         </tr>
                                     </thead>
@@ -54,31 +54,32 @@
                                             <tr>
                                                 {{-- <td> {{$item->id}}</td> --}}
                                                 <td>{{++$i}}.</td>
-                                                <td>{{$item->id}}</td>
-                                                <td>{{$item->status== 1?'Payed':'Not Pay'}}</td>
-                                                <td>{{$item->status_delivery}}</td>
-                                                <td> ${{$item->total}}</td>
+                                                <td>{{$item->ma_don_hang}}</td>
+                                                <td>{{$item->trang_thai== 1?'Đã thanh toán':'Chưa thanh toán'}}</td>
+                                                <td>{{$item->translateTinhTrangGiaoHang($item->tinh_trang_giao_hang)}}</td>
+                                                <td> {{$item->tong_tien}} đ</td>
                                                 {{-- <td> {{$item->discount}}</td> --}}
                                                 <td><a href="{{route('admin.orderdetails',['order_id'=>$item->id])}}"> details</a></td>
                                                 <td><div class="dropdown">
                                                     <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                                      Status
+                                                      Thanh toán
                                                     </button>
                                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                                      <li><a class="dropdown-item" href="#" wire:click.prevent="updateStatus({{$item->id}},1)" >Payed</a></li>
-                                                      <li><a class="dropdown-item" href="#"wire:click.prevent="updateStatus({{$item->id}},0)">Not Pay</a></li>
+                                                      <li><a class="dropdown-item" href="#" wire:click.prevent="updateStatus({{$item->id}},1)" >Đã thanh toán</a></li>
+                                                      <li><a class="dropdown-item" href="#"wire:click.prevent="updateStatus({{$item->id}},0)">Chưa thanh toán</a></li>
                                                     </ul>
                                                   </div>
                                                   
                                                 </td>
                                                 <td><div class="dropdown">
                                                     <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                                       Delivery
+                                                      Giao hàng
                                                     </button>
                                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                                      <li><a class="dropdown-item" href="#" wire:click.prevent="updateStatusDelivery({{$item->id}},'Delivering')" >Delivering</a></li>
-                                                      <li><a class="dropdown-item" href="#"wire:click.prevent="updateStatusDelivery({{$item->id}},'Delivered')">Delivered</a></li>
-                                                      <li><a class="dropdown-item" href="#"wire:click.prevent="updateStatusDelivery({{$item->id}},'Cancel')">Cancel</a></li>
+                                                      <li><a class="dropdown-item" href="#" wire:click.prevent="updateStatusDelivery({{$item->id}},'accepted')" >Đã xác nhận</a></li>
+                                                      <li><a class="dropdown-item" href="#"wire:click.prevent="updateStatusDelivery({{$item->id}},'delivering')">Đang giao</a></li>
+                                                      <li><a class="dropdown-item" href="#"wire:click.prevent="updateStatusDelivery({{$item->id}},'delivered')">Đã giao</a></li>
+                                                      <li><a class="dropdown-item" href="#"wire:click.prevent="updateStatusDelivery({{$item->id}},'canceled')">Đã hủy</a></li>
                                                     </ul>
                                                   </div></td>
                                             </tr>

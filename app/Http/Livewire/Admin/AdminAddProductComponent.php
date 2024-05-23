@@ -89,7 +89,7 @@ class AdminAddProductComponent extends Component
             $product->subdanh_muc_id=$this->subcategory_id;
         }
         
-        $product->category_id=$this->category_id;
+        $product->danh_muc_id=$this->category_id;
 
         $product->save();
         // foreach($this->attr_values as $key=>$attr_value){

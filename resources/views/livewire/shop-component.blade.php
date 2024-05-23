@@ -28,6 +28,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-9">
+                        {{-- {{dd($products->category);}} --}}
                         <div class="shop-product-fillter">
                             <div class="totall-product">
                                 <p> {{__('Chúng tôi có ')}}<strong class="text-brand">{{$products->count()}}</strong> {{__('sản phẩm cho bạn')}}</p>
@@ -82,26 +83,27 @@
                             <div class="col-lg-4 col-md-4 col-6 col-sm-6">
                                 <div class="product-cart-wrap mb-30">
                                     <div class="product-img-action-wrap">
-                                        <div class="product-img product-img-zoom">
+                                        <div class="product-img product-img-zoom" style="width: 300px; height: 400px;">
                                             <a href="{{route('product.details',['slug'=>$item->slug])}}">
-                                                <img class="default-img" src="{{asset('assets/imgs/products')}}/{{$item->image}}" alt="{{$item->name}}">
+                                                <img class="default-img" src="{{asset('assets/imgs/products')}}/{{$item->image}}" alt="{{$item->ten}}">
                                             
                                             </a>
                                         </div>
                                         <div class="product-action-1">
                                             {{-- <a aria-label="Quick view" class="action-btn hover-up" data-bs-toggle="modal" data-bs-target="#quickViewModal">
                                                 <i class="fi-rs-search"></i></a> --}}
-                                            <a aria-label="Add To Wishlist" class="action-btn hover-up"  wire:click.prevent="addToWishlist({{$item->id}},'{{$item->name}}','{{$item->regular_price}}')" href="#"><i class="fi-rs-heart"></i></a>
+                                            <a aria-label="Add To Wishlist" class="action-btn hover-up"  wire:click.prevent="addToWishlist({{$item->id}},'{{$item->ten}}','{{$item->gia}}')" href="#"><i class="fi-rs-heart"></i></a>
                                         </div>
                                         <div class="product-badges product-badges-position product-badges-mrg">
                                             {{-- <span class="hot">Hot</span> --}}
                                         </div>
                                     </div>
-                                    <div class="product-content-wrap">
+                                   
+                                    <div class="product-content-wrap mt-3">
                                         <div class="product-category">
-                                            <a href="shop.html">{{$item->category->name}}</a>
+                                            <a href="shop.html">{{$item->category->ten}}</a>
                                         </div>
-                                        <h2><a href="product-details.html">{{$item->name}}</a></h2>
+                                        <h2><a href="product-details.html">{{$item->ten}}</a></h2>
                                         <div class="rating-result" title="100%">
                                             
                                             <span>
@@ -109,7 +111,7 @@
                                             </span>
                                         </div>
                                         <div class="product-price">
-                                            <span>đ{{$item->regular_price}} </span>
+                                            <span>đ{{$item->gia}} </span>
                                             
                                         </div>
                                         <div class="product-action-1 show">

@@ -21,7 +21,7 @@
                                     <tr class="main-heading">
                                         <th scope="col">Image</th>
                                         <th scope="col">Name</th>
-                                        <th scope="col">Options</th>
+                                        {{-- <th scope="col">Options</th> --}}
                                         <th scope="col">Price</th>
                                         <th scope="col">Quantity</th>
                                         <th scope="col">Subtotal</th>
@@ -39,16 +39,16 @@
                                     <tr>
                                         <td class="image product-thumbnail"><img src="{{asset('assets/imgs/products')}}/{{$item->model->image}}" alt="#"></td>
                                         <td class="product-des product-name">
-                                            <h5 class="product-name"><a href="{{route('product.details',['slug'=>$item->model->slug])}}">{{$item->model->name}}</a></h5>
+                                            <h5 class="product-name"><a href="{{route('product.details',['slug'=>$item->model->slug])}}">{{$item->model->ten}}</a></h5>
                                             {{-- <p class="font-xs">Maboriosam in a tonto nesciung eget<br> distingy magndapibus.
                                             </p> --}}
                                         </td>
                                       
-                                        @if(!empty($item->options))
+                                        {{-- @if(!empty($item->options))
                                         <td> 
-                                            {{-- @foreach($item->options->color as $value)
+                                            @foreach($item->options->color as $value)
                                                 <p>Color:{{$value}}</p>
-                                            @endforeach  --}}
+                                            @endforeach 
                                             @foreach($item->options->size as $s)
                                             <p>Size:{{$s}}</p>
                                             @endforeach 
@@ -57,15 +57,15 @@
                                                     <p>Color: {{$value}}</p>
                                                 @endforeach
                                             @endif
-                                            {{-- @if(isset($item->options->size) && is_array($item->options->size) && count($item->options->size) > 0)
+                                            @if(isset($item->options->size) && is_array($item->options->size) && count($item->options->size) > 0)
                                             @foreach($item->options->size as $s)
                                                 <p>Size: {{$s}}</p>
                                             @endforeach
-                                        @endif --}}
-                                        </td>
                                         @endif
+                                        </td>
+                                        @endif --}}
                                         
-                                        <td class="price" data-title="Price"><span>{{$item->model->regular_price}} </span></td>
+                                        <td class="price" data-title="Price"><span>{{$item->model->gia}} </span></td>
                                         <td class="text-center" data-title="Stock">
                                             <div class="detail-qty border radius  m-auto">
                                                 <a href="#" class="qty-down" wire:click.prevent="decreaseQuantity('{{$item->rowId}}')"><i class="fi-rs-angle-small-down"></i></a>
