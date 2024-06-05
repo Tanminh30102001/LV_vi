@@ -64,7 +64,7 @@
                               <div class="d-flex justify-content-between align-items-center mb-4">
                                 <p class="lead fw-normal mb-0" style="color: #a8729a;">Receipt</p>
                                 <p class="small text-muted mb-0">
-                                    @if($order->status_delivery != 'canceled' && $order->status_delivery!='delivered')
+                                    @if($order->tinh_trang_giao_hang != 'canceled' && $order->tinh_trang_giao_hang!='delivered')
                                     <a href="#" id="showFormButton"class="btn btn-danger" wire:click.prevent="showForm">Cancel Order</a> 
                                     @endif</p>
                               </div>
@@ -77,7 +77,7 @@
                                         <img src="{{asset('assets/imgs/products')}}/{{$item->product->image}}" alt="#">
                                     </div>
                                     <div class="col-md-3 text-center d-flex justify-content-center align-items-center">
-                                      <p class="text-muted mb-0">{{$item->product->name}}</p>
+                                      <p class="text-muted mb-0">{{$item->product->ten}}</p>
                                     </div>
                                     <div class="col-md-1 text-center d-flex justify-content-center align-items-center">
                                       @php
@@ -88,24 +88,24 @@
                                       {{-- <p class="text-muted mb-0 small"> @foreach($options->color as $key => $value) {{$value}} @endforeach  </p>
                                        --}}
                                        <p class="text-muted mb-0 small">
-                                       @if(isset($options->color) && is_array($options->color) && count($options->color) > 0)
+                                       {{-- @if(isset($options->color) && is_array($options->color) && count($options->color) > 0)
                                             @foreach($options->color as $key => $value)
                                                 {{$value}}
                                             @endforeach
-                                        @endif
+                                        @endif --}}
                                        </p>
                                     </div>
                                     <div class="col-md-1 text-center d-flex justify-content-center align-items-center">
-                                      <p class="text-muted mb-0 small">@foreach($options->size as $key => $va) {{$va}} @endforeach</p>
+                                      {{-- <p class="text-muted mb-0 small">@foreach($options->size as $key => $va) {{$va}} @endforeach</p> --}}
                                     </div>
                                     <div class="col-md-1 text-center d-flex justify-content-center align-items-center">
-                                      <p class="text-muted mb-0 small">Qyt:{{$item->quantity}}</p>
+                                      <p class="text-muted mb-0 small">Qyt:{{$item->so_luong}}</p>
                                     </div>
                                     <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                      <p class="text-muted mb-0 small">${{$item->product->regular_price}}</p>
+                                      <p class="text-muted mb-0 small">${{$item->product->gia}}</p>
                                     </div>
                                     <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                        @if($order->status_delivery=='delivered'&& $item->rstatus== false)
+                                        @if($order->tinh_trang_giao_hang=='delivered'&& $item->trang_thai_danh_gia== false)
                                         <p class="text-muted mb-0 small"><a href="{{route('user.review',['order_details_id'=>$item->id])}}"> Write Review</a></p>
                                         @endif
                                     </div>
@@ -117,7 +117,17 @@
                                     </div>
                                     <div class="col-md-10">
                                       <div class="progress" style="height: 6px; border-radius: 16px;">
-                                        <div class="progress-bar" role="progressbar" style="width:{{ $order->status_delivery == 'accept order' ? 30 : ($order->status_delivery == 'delivering' ? 60 : 100) }}%;
+                                        <div class="progress-bar" role="progressbar" style="width:
+                                        @if($order->tinh_trang_giao_hang == 'ordered')
+                                            0%;
+                                        @elseif($order->tinh_trang_giao_hang == 'accept order')
+                                            30%;
+                                        @elseif($order->tinh_trang_giao_hang == 'delivering')
+                                            60%;
+                                        @else
+                                            100%;
+                                        @endif">
+                                    </div>
                                          border-radius: 16px; background-color: #a8729a;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
                                       </div>
                                       <div class="d-flex justify-content-around mb-1">
@@ -134,30 +144,29 @@
                               </div>
                              @endforeach
                               <div class="d-flex justify-content-between pt-2">
-                                <p class="fw-bold mb-0">Order Details</p>
-                                <p class="text-muted mb-0"><span class="fw-bold me-4">Sub Total</span> ${{$order->total - round($order->total * (0.1/1.1),1)}}</p>
+                                <p class="fw-bold mb-0 px-3">Chi tiết hóa đơn</p>
+                                <p class="text-muted mb-0 mx-2"><span class="fw-bold me-4">Tạm tính</span>{{$order->tam_tinh}} </p>
                               </div>
-                  
+                              {{-- {{$order->tam_tinh - round($order->tam_tinh * (0.1/1.1),1)}} --}}
                               <div class="d-flex justify-content-between pt-2">
-                                <p class="text-muted mb-0">Order No : {{$order->id}}</p>
-                                <p class="text-muted mb-0"><span class="fw-bold me-4">Discount</span> $0</p>
+                                <p class="text-muted mb-0 px-3">Mã đơn hàng: {{$order->ma_don_hang}}</p>
+                                <p class="text-muted mb-0 mx-2"><span class="fw-bold me-4">Discount</span> {{$order->giam_gia}}</p>
                               </div>
                   
                               <div class="d-flex justify-content-between">
-                                <p class="text-muted mb-0">Invoice Date : {{$order->created_at->format('d.m.Y')}}</p>
-                                <p class="text-muted mb-0"><span class="fw-bold me-4">Tax 10%</span> {{round($order->total * (0.1/1.1),1)}}</p>
+                                <p class="text-muted mb-0 px-3">Ngày Đặt: {{$order->created_at->format('d.m.Y')}}</p>
+                                <p class="text-muted mb-0 mx-2"><span class="fw-bold me-4">Phí ship</span> {{config('cart.tax')}}</p>
                               </div>
                   
                               <div class="d-flex justify-content-between mb-5">
-                                <p class="text-muted mb-0">Recepits Voucher : None</p>
-                                <p class="text-muted mb-0"><span class="fw-bold me-4">Delivery Charges</span> Free</p>
+                                {{-- <p class="text-muted mb-0">Recepits Voucher : None</p> --}}
+                                {{-- <p class="text-muted mb-0"><span class="fw-bold me-4">Delivery Charges</span> Free</p> --}}
                               </div>
                             </div>
                             
-                            <div class="card-footer border-0 px-4 py-5"
+                            <div class="card-footer border-0 px-4 py-4"
                               style="background-color: #a8729a; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
-                              <h5 class="d-flex align-items-center justify-content-end text-white text-uppercase mb-0">Total
-                                paid: <span class="h2 mb-0 ms-2">${{$order->total}}</span></h5>
+                              <h5 class="d-flex align-items-center justify-content-end text-white text-uppercase mb-0">Tổng hóa đơn: <span class="h2 mb-0 ms-2">{{$order->tong_tien}}</span></h5>
                             </div>
                           </div>
                         </div>

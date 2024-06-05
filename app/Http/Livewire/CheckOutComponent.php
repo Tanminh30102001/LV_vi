@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Cart;
 use Error;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 
@@ -43,20 +44,28 @@ class CheckOutComponent extends Component
         session()->forget('coupon');
     }
     public function applyCoupon()
-    {
+    {  
 
-        $coupon = Coupon::where('code', $this->couponcode)->where('expiry_date', '>=', Carbon::today())->where('cart_value', '<=', Cart::instance('cart')->subtotal())->first();
+        $coupon = Coupon::where('ma_phieu', $this->couponcode)
+        ->where('expiry_date', '>=', Carbon::today())
+        ->first();
+       
         if (!$coupon) {
             session()->flash('cp_mess', 'Code coupon invalid');
             return;
         }
+        if ($coupon->gia_tri_gio_hang > Cart::instance('cart')->subtotal()){
+            session()->flash('cp_mess', 'Code coupon invalid');
+        }
         session()->put('coupon', [
-            'code' => $coupon->code,
-            'type' => $coupon->type,
-            'value' => $coupon->value,
-            'cart_value' => $coupon->cart_value
+            'code' => $coupon->ma_phieu,
+            'type' => $coupon->loai,
+            'value' => $coupon->gia_tri,
+            'cart_value' => $coupon->gia_tri_gio_hang
         ]);
+        // dd(session()->get('coupon'));
         session()->flash('cp_applied', 'Coupon applied');
+        return redirect(route('shop.checkout'));
     }
     public function calculateDiscount()
     {
@@ -64,13 +73,26 @@ class CheckOutComponent extends Component
             if (session()->get('coupon')['type'] == 'fixed') {
                 $this->discount = floatval(session()->get('coupon')['value']);
                 // dd($this->discount);
+                session()->put('checkout', [
+                    'discount' =>  $this->discount,
+                ]);
             } else {
-                $this->discount = (Cart::instance('cart')->subtotal() * session()->get('coupon')['value']) / 100;
+                $this->discount=intval(str_replace(',', '', Cart::instance('cart')->subtotal())) * intval(session()->get('coupon')['value'])/100;
+                // dd($this->discount);
+                session()->put('checkout', [
+                    'discount' =>  $this->discount,
+                ]);
             }
             // dd(gettype(Cart::instance('cart')->subtotal()),Cart::instance('cart')->subtotal());
-            $this->subtotalAfterDiscount = intval(str_replace(',', '', Cart::instance('cart')->subtotal())) - intval(session()->get('coupon')['value']);
+            $this->subtotalAfterDiscount = intval(str_replace(',', '', Cart::instance('cart')->subtotal())) - intval( $this->discount);
+            
             // dd(intval(str_replace(',', '', Cart::instance('cart')->subtotal())));
             $this->totalAfterDiscount = $this->subtotalAfterDiscount + config('cart.tax');
+            session()->put('checkout', [
+                'discount' =>  $this->discount,
+                'subtotal'=>Cart::instance('cart')->subtotal(),
+                'total' =>  $this->totalAfterDiscount,
+            ]);
         }
     }
     public function placeOrder()
@@ -87,8 +109,9 @@ class CheckOutComponent extends Component
         $order->tong_tien = str_replace(',', '', session()->get('checkout')['total']);
         $order->ma_don_hang = rand(1000, 999999999);
         $order->giam_gia = session()->get('checkout')['discount'];
+        $order->tam_tinh = session()->get('checkout')['subtotal'];
         $order->email = Auth::user()->email;
-        $order->user_ten =Auth::user()->ten;
+        $order->user_ten = Auth::user()->ten;
         $order->user_sdt = $this->user_phone;
         $order->user_diachi = $this->user_address;
         $order->ghi_chu = $this->notes;
@@ -97,7 +120,6 @@ class CheckOutComponent extends Component
         $order->save();
         foreach (Cart::instance('cart')->content() as $item) {
             $orderDetails = new OrderDetails();
-
             $orderDetails->san_pham_id = $item->id;
             $orderDetails->don_hang_id = $order->id;
             $orderDetails->gia_tien = $item->price;
@@ -114,13 +136,11 @@ class CheckOutComponent extends Component
             $product->save();
             $orderDetails->save();
         }
-
-
         // $order_id=$order->id;
         // $orderD =OrderDetails::where('order_id',$order_id)->get();
-
         // Mail::to($order->email)->send(new confirmOrderMail($order));
         Cart::instance('cart')->destroy();
+        session()->forget('coupon');
         session()->flash('message', 'Orderd successfully');
         return redirect(route('thankyou'));
     }
@@ -134,6 +154,7 @@ class CheckOutComponent extends Component
                 $this->calculateDiscount();
             }
         }
+
         return view('livewire.check-out-component');
     }
 }

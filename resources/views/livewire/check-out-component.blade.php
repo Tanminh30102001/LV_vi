@@ -82,7 +82,7 @@
                         <?php
 
                         ?>
-                        <form wire:submit.prevent="placeOrder" onsubmit="$('#processing').show();">
+                        <form wire:submit.prevent="placeOrder">
                            
                             <div class="form-group">
                                 <input type="text" required="" name="email" placeholder="{{ Auth::user()->email }}" wire:model="email" @auth value="{{ Auth::user()->email }}" readonly @endauth />
@@ -204,11 +204,7 @@
                             </div>
                            
                             
-                            {{-- <div wire:ignore @if($process) class="" @else class="hidden" @endif> 
-                                <div class="spinner-border text-primary"  role="status">
-                                    <span class="sr-only"></span>
-                                  </div>
-                            </div> --}}
+
                             <button type="submit" id="orderButton"class="btn btn-fill-out btn-block mt-30"  >{{__('Đặt hàng ')}}</button>
                             
                          </div>

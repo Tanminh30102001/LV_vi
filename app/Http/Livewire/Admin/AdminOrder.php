@@ -10,7 +10,7 @@ class AdminOrder extends Component
 {
     public function updateStatus($order_id,$status){
         $order=Order::find($order_id);
-        $order->status=$status;
+        $order->trang_thai=$status;
         $order->save();
         session()->flash('message','Update status successfully');
     }
