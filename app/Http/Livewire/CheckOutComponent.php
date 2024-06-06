@@ -114,7 +114,7 @@ class CheckOutComponent extends Component
             $order->tam_tinh = session()->get('checkout')['subtotal'];
         }
         $order->tong_tien = str_replace(',', '', Cart::instance('cart')->total());
-        $order->giam_gia = session()->get('checkout')['discount'];
+        $order->giam_gia = session()->get('checkout')['discount']??0;
         $order->tam_tinh = Cart::instance('cart')->subtotal();
         $order->email = Auth::user()->email;
         $order->user_ten = Auth::user()->ten;
