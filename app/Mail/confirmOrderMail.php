@@ -37,10 +37,8 @@ class confirmOrderMail extends Mailable
      */
     public function envelope()
     {
-        $fromadd="tanminh.tn30102001@gmail.com";
-        // $fromname=env('MAIL_FROM_NAME');
-        $fromname=$this->order->email;
-        // dd( $fromadd, $fromname);
+        $fromadd=config('mail.from.address');
+        $fromname=config('mail.from.name');
         return new Envelope(
             from: new Address($fromadd,$fromname),
             subject: 'Confirm Order Mail',
@@ -57,7 +55,8 @@ class confirmOrderMail extends Mailable
         return new Content(
             view: 'emails.confirmOrder',
             with:[
-                'order'=>$this->order
+                'order'=>$this->order,
+                'discount' => $this->order->discount ?? 0 
             ]
         );
     }

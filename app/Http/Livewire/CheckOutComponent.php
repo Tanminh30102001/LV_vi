@@ -83,9 +83,7 @@ class CheckOutComponent extends Component
                     'discount' =>  $this->discount,
                 ]);
             }
-            // dd(gettype(Cart::instance('cart')->subtotal()),Cart::instance('cart')->subtotal());
             $this->subtotalAfterDiscount = intval(str_replace(',', '', Cart::instance('cart')->subtotal())) - intval( $this->discount);
-            
             // dd(intval(str_replace(',', '', Cart::instance('cart')->subtotal())));
             $this->totalAfterDiscount = $this->subtotalAfterDiscount + config('cart.tax');
             session()->put('checkout', [
@@ -97,6 +95,7 @@ class CheckOutComponent extends Component
     }
     public function placeOrder()
     {
+       
         $this->validate([
 
             'user_phone' => "required|numeric",
@@ -106,10 +105,17 @@ class CheckOutComponent extends Component
         $order->user_id = Auth::user()->id;
         // $order->total=str_replace(',','',Cart::instance('cart')->total()) ;
         // $order->total=session()->get('checkout')['total'];
-        $order->tong_tien = str_replace(',', '', session()->get('checkout')['total']);
         $order->ma_don_hang = rand(1000, 999999999);
+
+        if (session()->has('coupon')) {
+         
+            $order->tong_tien = str_replace(',', '', session()->get('checkout')['total']);
+            $order->giam_gia = session()->get('checkout')['discount'];
+            $order->tam_tinh = session()->get('checkout')['subtotal'];
+        }
+        $order->tong_tien = str_replace(',', '', Cart::instance('cart')->total());
         $order->giam_gia = session()->get('checkout')['discount'];
-        $order->tam_tinh = session()->get('checkout')['subtotal'];
+        $order->tam_tinh = Cart::instance('cart')->subtotal();
         $order->email = Auth::user()->email;
         $order->user_ten = Auth::user()->ten;
         $order->user_sdt = $this->user_phone;
@@ -138,7 +144,7 @@ class CheckOutComponent extends Component
         }
         // $order_id=$order->id;
         // $orderD =OrderDetails::where('order_id',$order_id)->get();
-        // Mail::to($order->email)->send(new confirmOrderMail($order));
+        Mail::to($order->email)->send(new confirmOrderMail($order));
         Cart::instance('cart')->destroy();
         session()->forget('coupon');
         session()->flash('message', 'Orderd successfully');
