@@ -16,7 +16,7 @@
                 </div>
                 <div class="shopping-cart-title">
                     <h4><a href="{{route('product.details',['slug'=>$item->model->slug])}}">{{$item->model->ten}}</a></h4>
-                    <h4><span>{{$item->qty}} × </span>${{$item->model->regular_price}}</h4>
+                    <h4><span>{{$item->qty}} × </span>${{$item->model->gia}}</h4>
                 </div>
                 
             </li>
@@ -25,7 +25,7 @@
         </ul>
         <div class="shopping-cart-footer">
             <div class="shopping-cart-total">
-                <h4>Total <span>${{Cart::instance('cart')->total()}}</span></h4>
+                <h4>Total <span>đ{{Cart::instance('cart')->total()}}</span></h4>
             </div>
             <div class="shopping-cart-button">
                 <a href="{{route('shop.cart')}}" class="outline">{{__('Xem giỏ hàng')}}</a>

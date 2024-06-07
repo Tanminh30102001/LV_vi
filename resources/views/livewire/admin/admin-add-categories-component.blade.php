@@ -65,7 +65,7 @@
                                         <select class="form-control"name="category_id"wire:model="category_id" >
                                                 <option value="">không có</option>
                                                 @foreach ($categories as $item)
-                                                <option value="{{$item->id}}">{{$item->name}}</option>
+                                                <option value="{{$item->id}}">{{$item->ten}}</option>
                                                 @endforeach
                                         </select>
                                     </div>

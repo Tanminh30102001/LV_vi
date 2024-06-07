@@ -8,6 +8,7 @@ use Livewire\Component;
 
 class AdminOrder extends Component
 {
+    public $searchTerm = '';
     public function updateStatus($order_id,$status){
         $order=Order::find($order_id);
         $order->trang_thai=$status;
@@ -33,8 +34,9 @@ class AdminOrder extends Component
         session()->flash('message','Update status of Delivery successfully');
     }
     public function render()
-    {
-        $orders=Order::orderBy('created_at','DESC')->paginate(10);
+    {   $search='%'.$this->searchTerm.'%';
+        $orders=Order:: orderBy('created_at','DESC')->where('ma_don_hang','LIKE',$search)->
+       paginate(10);
         return view('livewire.admin.admin-order',['orders'=>$orders]);
     }
 }

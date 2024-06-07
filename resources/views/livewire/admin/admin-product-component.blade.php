@@ -40,6 +40,7 @@
                                         <tr>
                                             <th> #</th>
                                             <th> Ảnh</th>
+                                            <th>Mã sản phẩm</th>
                                             <th> Tên</th>
                                             <th> Tình trạng ở kho</th>
                                             <th> Giá gốc </th>
@@ -57,6 +58,8 @@
                                                 {{-- <td> {{$item->id}}</td> --}}
                                                 <td>{{++$i}}.</td>
                                                 <td><img src="{{asset('assets/imgs/products')}}/{{$item->image}}" alt="{{$item->image}}" width='80px' height='70px'/></td>
+                                                <td>{{$item->ma_sp}}</td>
+                                               
                                                 <td> {{$item->ten}}</td>
                                                 <td> {{$item->trang_thai_ton_kho}}</td>
                                                 <td> {{$item->gia}}</td>

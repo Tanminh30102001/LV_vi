@@ -167,7 +167,7 @@
                                             </div>
                                         </div>
                                         <ul class="product-meta font-xs color-grey mt-50">
-                                            <li class="mb-5">SKU: <a href="#">{{$product->so_hieu}}</a></li>
+                                            <li class="mb-5">Mã sản phẩm: <a href="#">{{$product->ma_sp}}</a></li>
                                             {{-- <li class="mb-5">Tags: <a href="#" rel="tag">Cloth</a>, <a href="#" rel="tag">Women</a>, <a href="#" rel="tag">Dress</a> </li> --}}
                                             <li>{{__('Số lượng hiện có')}}:<span class="in-stock text-success ml-5">{{$product->so_luong}}</span></li>
                                         </ul>

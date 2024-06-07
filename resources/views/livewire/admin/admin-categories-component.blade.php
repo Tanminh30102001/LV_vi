@@ -23,8 +23,10 @@
                     <div class="col-12">
                         <div class="card-header">
                             <div class="row">
-                                <div class="col-md-6">Tất cả danh mục</div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">Tất cả danh mục</div>
+                                <div class="col-md-4"><input type="text"  class="form-control" placeholder="Input name,price,quanity to search..."wire:model="searchTerm"/></div>
+                                
+                                <div class="col-md-4">
                                     <a href="{{route('admin.add.categories')}}" class="btn btn-succsess float-end">Thêm mới danh mục  </a>
                                 </div>
                             </div>

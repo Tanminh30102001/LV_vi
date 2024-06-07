@@ -30,10 +30,10 @@ class AdminEditCategoriesComponent extends Component
         {
             $category = Category::find($category_id);
             $this->category_id=$category->id;
-            $this->name=$category->name;
+            $this->name=$category->ten;
             $this->slug=$category->slug;
             $this->image=$category->image;
-            $this->is_popular=$category->is_popular;
+            $this->is_popular=$category->pho_bien;
         }
        
     }
@@ -56,12 +56,12 @@ class AdminEditCategoriesComponent extends Component
             $scategory=Subcategory::find($this->scategory_id);
             $this->scategory_id=$scategory->id;
             $this->category_id=$scategory->category_id;
-            $this->name=$scategory->name;
+            $this->name=$scategory->ten;
             $this->slug=$scategory->slug;
             $scategory->save();
         }else{
             $category=Category::find($this->category_id);
-            $category->name=$this->name;
+            $category->ten=$this->name;
             $category->slug=$this->slug;
             if($this->newimage){
                 // unlink('assets/imgs/category/'.$category->newimage);
@@ -69,7 +69,7 @@ class AdminEditCategoriesComponent extends Component
                 $this->newimage->storeAs('category',$imageName);
                 $category->image=$imageName;
             }
-            $category->is_popular=$this->is_popular;
+            $category->pho_bien=$this->is_popular;
             $category->save();
         }
         

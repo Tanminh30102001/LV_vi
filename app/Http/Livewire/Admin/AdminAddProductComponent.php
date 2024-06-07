@@ -89,8 +89,16 @@ class AdminAddProductComponent extends Component
             $product->subdanh_muc_id=$this->subcategory_id;
         }
         
+        
         $product->danh_muc_id=$this->category_id;
-
+        $category = Category::find($this->category_id);
+        if ($category) {
+            $category_slug = $category->slug;
+            $slug_parts = explode('-', $category_slug);
+            $suffix = end($slug_parts); 
+            $random_number = mt_rand(100000, 999999); 
+            $product->ma_sp = $suffix . $random_number;
+        }
         $product->save();
         // foreach($this->attr_values as $key=>$attr_value){
         //     $avalues =explode(",",$attr_value);

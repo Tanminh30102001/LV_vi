@@ -36,7 +36,7 @@ class AdminAddCategoriesComponent extends Component
         ]);
         if($this->category_id){
             $scategory=new Subcategory();
-            $scategory->name=$this->name;
+            $scategory->ten=$this->name;
             $scategory->slug=$this->slug;
             $scategory->category_id=$this->category_id;
             $scategory->save();

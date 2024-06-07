@@ -24,10 +24,8 @@ class AdminProductComponent extends Component
         $search='%'.$this->searchTerm.'%';
         $products=Product::where('ten','LIKE',$search)->
         orWhere('gia','like' ,$search)->
-        orWhere('gia_sale','like' ,$search)->
-        orWhere('so_luong','like' ,$search)->
-        orderBy('id','ASC')->paginate(10);
-
+        orWhere('ma_sp','like' ,$search)->
+        orderBy('id','DESC')->paginate(10);
         return view('livewire.admin.admin-product-component',['products'=>$products]);
     }
 }

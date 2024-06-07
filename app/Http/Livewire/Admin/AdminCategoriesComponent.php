@@ -9,6 +9,7 @@ use Livewire\WithPagination;
 class AdminCategoriesComponent extends Component
 {
     public $category_id;
+    public $searchTerm = '';
     public $subcategory_id;
     use WithPagination;
     public function deleteCategory(){
@@ -28,7 +29,11 @@ class AdminCategoriesComponent extends Component
 
     public function render()
     {
-        $categories=Category::orderBy('ten','ASC')->paginate(5);
+        $search='%'.$this->searchTerm.'%';
+        $categories=Category::where('ten','LIKE',$search)->
+        orWhere('slug','like' ,$search)->
+        orderBy('id','ASC')->paginate(10);
+        // $categories=Category::orderBy('ten','ASC')->paginate(5);
         return view('livewire.admin.admin-categories-component',['categories'=>$categories]);
     }
 }
