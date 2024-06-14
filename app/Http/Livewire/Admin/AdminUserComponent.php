@@ -11,7 +11,7 @@ class AdminUserComponent extends Component
     public function render()
     {
       
-        $users=User::paginate(10);
+        $users = User::paginate(10);
         return view('livewire.admin.admin-user-component',['users'=>$users]);
     }
 }

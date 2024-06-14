@@ -121,7 +121,7 @@ class AdminAddProductComponent extends Component
     {
         $categories=Category::orderBy('ten','ASC')->get();
         $subcategories=Subcategory::where('category_id',$this->category_id)->get();
-        $pattributes=ProductAttribute::all();
+        // $pattributes=ProductAttribute::all();
         return view('livewire.admin.admin-add-product-component',['categories'=>$categories,'subcategories'=>$subcategories,'pattributes'=>$pattributes]);
     }
 }
