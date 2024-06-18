@@ -111,7 +111,7 @@
                                         @foreach($categories as $category) 
                                         @if(count($category->subCategories)>0)
                                         <li class="has-children">
-                                            <a href="{{route('product.category',['slug'=>$category->slug])}}"><i class="surfsidemedia-font-dress"></i>{{$category->name}}</a>
+                                            <a href="{{route('product.category',['slug'=>$category->slug])}}"><i class="surfsidemedia-font-dress"></i>{{$category->ten}}</a>
                                             <div class="dropdown-menu">
                                                 <ul class="mega-menu d-lg-flex">
                                                     <li class="mega-menu-col col-lg-4">
@@ -119,7 +119,7 @@
                                                             <li class="mega-menu-col col-lg-6">
                                                                 <ul>
                                                                     @foreach($category->subCategories as $scategory)
-                                                                    <li><a class="dropdown-item nav-link nav_item" href="{{route('product.category',['slug'=>$category->slug,'scategory_slug'=>$scategory->slug])}}">{{$scategory->name}}</a></li>
+                                                                    <li><a class="dropdown-item nav-link nav_item" href="{{route('product.category',['slug'=>$category->slug,'scategory_slug'=>$scategory->slug])}}">{{$scategory->ten}}</a></li>
                                                                     @endforeach
                                                                 </ul>
                                                             </li>
@@ -267,10 +267,10 @@
                                     @foreach($categories as $category)
                                     @if(count($category->subCategories)>0)
                                     <ul class="mobile-menu">
-                                        <li class="menu-item-has-children"><span class="menu-expand"></span><a href="{{route('product.category',['slug'=>$category->slug])}}">{{$category->name}}</a>
+                                        <li class="menu-item-has-children"><span class="menu-expand"></span><a href="{{route('product.category',['slug'=>$category->slug])}}">{{$category->ten}}</a>
                                             <ul class="dropdown">
                                                 @foreach($category->subCategories as $scategory)
-                                                <li class="menu-item-has-children"><span class="menu-expand"></span><a href="{{route('product.category',['slug'=>$category->slug,'scategory_slug'=>$scategory->slug])}}">{{$scategory->name}}</a> </li>
+                                                <li class="menu-item-has-children"><span class="menu-expand"></span><a href="{{route('product.category',['slug'=>$category->slug,'scategory_slug'=>$scategory->slug])}}">{{$scategory->ten}}</a> </li>
                                                 @endforeach
                                             </ul>
                                         </li>
