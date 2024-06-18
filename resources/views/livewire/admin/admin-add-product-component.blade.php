@@ -76,13 +76,13 @@
                                         <p class="text-danger">{{$message}} </p>
                                         @enderror
                                     </div>
-                                    <div class="mb-3 mt-3">
+                                    {{-- <div class="mb-3 mt-3">
                                         <label for="sku" class="form-label"> số hiệu</label>
                                         <input type="text" name="sku" class="form-control" placeholder="Nhạp số hiệu" wire:model="sku"/> 
                                         @error('sku')
                                         <p class="text-danger">{{$message}} </p>
                                         @enderror
-                                    </div>
+                                    </div> --}}
                                     <div class="mb-3 mt-3">
                                         <label for="stock_stauts" class="form-label" > Tình trạng trong kho</label>
                                         <select class="form-control" name="stock_status"wire:model="stock_status" >

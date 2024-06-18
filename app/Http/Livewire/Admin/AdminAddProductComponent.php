@@ -20,7 +20,7 @@ class AdminAddProductComponent extends Component
     public $desc;
     public $regular_price;
     public $sale_price;
-    public $sku;
+    // public $sku;
     public $stock_status="instock";
     public $featured=0;
     public $quanity;
@@ -54,7 +54,7 @@ class AdminAddProductComponent extends Component
             'desc'=>"required",
             'regular_price'=>'required | numeric ',
             'sale_price'=>'numeric',
-            'sku'=>'required',
+            // 'sku'=>'required',
             'stock_status'=>'required',
             'featured'=>'required',
             'quanity'=>'required',
@@ -67,9 +67,9 @@ class AdminAddProductComponent extends Component
         $product->slug=$this->slug;
         $product->mieu_ta_ngan=$this->short_desc;
         $product->mieu_ta=$this->desc;
-        $product->gia=$this->regular_price;
-        $product->gia_sale=$this->sale_price;
-        $product->so_hieu=$this->sku;
+        $product->gia_sale=$this->regular_price; // giá gốc (giá  bị gạch)
+        $product->gia=$this->sale_price; // giá bán chính thức 
+        // $product->so_hieu=$this->sku;
          $product->trang_thai_ton_kho=$this->stock_status;
          $product->featured=$this->featured;
         $product->so_luong=$this->quanity;
