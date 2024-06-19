@@ -116,9 +116,11 @@
                                         </div>
                                         <div class="product-action-1 show">
                                             @if($witems->contains($item->id))
-                                            <a aria-label="Remove To Wishlist" class="action-btn hover-up wishlisted" href="#" wire:click.prevent="removeFromWishlist({{$item->id}})"><i class="fi-rs-heart"></i></a>
+                                            <a aria-label="Remove To Wishlist" class="action-btn hover-up wishlisted" href="#" 
+                                            wire:click.prevent="removeFromWishlist({{$item->id}})"><i class="fi-rs-heart"></i></a>
                                             @else
-                                            <a aria-label="Add To Wishlist" class="action-btn hover-up" href="#" wire:click.prevent="addToWishlist({{$item->id}},'{{$item->name}}','{{$item->regular_price}}')"><i class="fi-rs-heart"></i></a>
+                                            <a aria-label="Add To Wishlist" class="action-btn hover-up" href="#" 
+                                            wire:click.prevent="addToWishlist({{$item->id}},'{{$item->ten}}','{{$item->gia}}')"><i class="fi-rs-heart"></i></a>
                                             @endif
                                             <a aria-label="Add To Cart" class="action-btn hover-up" href="{{route("product.details",['slug'=>$item->slug])}}">
                                                 {{-- " wire:click.prevent="store({{$item->id}},'{{$item->name}}','{{$item->regular_price}}')" --}}
@@ -147,7 +149,7 @@
                                     @foreach($categories as $category) 
                                     @if(count($category->subCategories)>0)
                                     <li class="has-children">
-                                        <a href="{{route('product.category',['slug'=>$category->slug])}}"><i class="surfsidemedia-font-dress"></i>{{$category->name}}</a>
+                                        <a href="{{route('product.category',['slug'=>$category->slug])}}"><i class="surfsidemedia-font-dress"></i>{{$category->ten}}</a>
                                         <div class="dropdown-menu">
                                             <ul class="mega-menu d-lg-flex">
                                                 <li class="mega-menu-col col-lg-4">
@@ -155,7 +157,7 @@
                                                         <li class="mega-menu-col col-lg-6">
                                                             <ul>
                                                                 @foreach($category->subCategories as $scategory)
-                                                                <li><a class="dropdown-item nav-link nav_item" href="{{route('product.category',['slug'=>$category->slug,'scategory_slug'=>$scategory->slug])}}">{{$scategory->name}}</a></li>
+                                                                <li><a class="dropdown-item nav-link nav_item" href="{{route('product.category',['slug'=>$category->slug,'scategory_slug'=>$scategory->slug])}}">{{$scategory->ten}}</a></li>
                                                                 @endforeach
                                                             </ul>
                                                         </li>
@@ -167,7 +169,7 @@
                                         </div>
                                     </li>
                                     @else
-                                    <li><a href="{{route('product.category',['slug'=>$category->slug])}}"><i class="surfsidemedia-font-desktop"></i>{{$category->name}}</a></li>
+                                    <li><a href="{{route('product.category',['slug'=>$category->slug])}}"><i class="surfsidemedia-font-desktop"></i>{{$category->ten}}</a></li>
                                     @endif
                                     
                                     @endforeach
@@ -192,7 +194,26 @@
                             </div>
                           
                         </div>
-                     
+                        <div class="sidebar-widget product-sidebar  mb-30 p-30 bg-grey border-radius-10">
+                            <div class="widget-header position-relative mb-20 pb-10">
+                                <h5 class="widget-title mb-10">Sản phẩm mới ra mắt</h5>
+                                <div class="bt-1 border-color-1"></div>
+                            </div>
+                            @foreach($newProds as $newProd)
+                            <div class="single-post clearfix">
+                                <div class="image">
+                                    <img class="default-img" src="{{asset('assets/imgs/products')}}/{{$item->image}}" alt="{{$item->ten}}">
+                                </div>
+                                <div class="content pt-10">
+                                    <h5><a href="product-details.html">{{$newProd->ten}}</a></h5>
+                                    <p class="price mb-0 mt-5">{{$newProd->gia}}đ</p>
+                                   
+                                </div>
+                            </div>
+                                
+                                @endforeach
+                            
+                        </div>
                     </div>
                 </div>
             </div>

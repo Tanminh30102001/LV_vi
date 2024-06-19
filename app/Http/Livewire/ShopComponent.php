@@ -58,7 +58,7 @@ class ShopComponent extends Component
     //     $sortedProducts = $query->paginate($this->pageSize);
     // }
     $query = Product::whereBetween('gia', [$this->min_value, $this->max_value]);
-
+    
     if ($this->orderBy == 'Price:Low to High') {
         $sortedProducts = $query->orderBy('gia', 'ASC')->get();
     } elseif ($this->orderBy == 'Price:High to Low') {
@@ -73,6 +73,7 @@ class ShopComponent extends Component
         Cart::instance('cart')->store(Auth::user()->email);
         Cart::instance('wishlist')->store(Auth::user()->email);
     }
-    return view('livewire.shop-component', ['products' => $sortedProducts, 'categories' => $categories]);
+    $newProd= Product::orderBy('created_at', 'DESC')->limit(5)->get();
+    return view('livewire.shop-component', ['products' => $sortedProducts,'newProds'=>$newProd, 'categories' => $categories,]);
     }
 }
