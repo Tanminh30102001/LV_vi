@@ -37,23 +37,31 @@ class AdminEditProductComponent extends Component
     public $inputs=[];
     public $attr_array=[];
     public $attr_values;
+    public $keyword;
+    public $man_hinh;
+    public $kich_thuoc;
+    public $dung_luong_pin;
+    public $cong_suat_sac;
+    public $thoi_luong_tai_nghe;
+    public $cong_sac;
+
     function mount($product_id){
         $product =Product::find($product_id);
         $this->product_id=$product->id;
-        $this->name =$product->name ;
+        $this->name =$product->ten ;
         $this->slug  =$product->slug ;
-        $this->short_desc=$product->short_desc ;
-        $this->desc   =$product->desc  ;
-        $this->regular_price=$product->regular_price;
-        $this->sale_price =$product->sale_price;
+        $this->short_desc=$product->mieu_ta_ngan ;
+        $this->desc   =$product->mieu_ta  ;
+        $this->regular_price=$product->gia_sale;
+        $this->sale_price =$product->gia;
         $this->sku =$product->sku ;
-        $this->stock_status=$product->stock_status;
+        $this->stock_status=$product->trang_thai_ton_kho;
         $this->featured=$product->featured ;
-        $this->quanity =$product->quanity ;
+        $this->quanity =$product->so_luong ;
         $this->image =$product->image;
         $this->images =explode('-',$product->images);
-        $this->category_id=$product->category_id;
-        $this->scategory_id=$product->subcategory_id;
+        $this->category_id=$product->danh_muc_id;
+        $this->scategory_id=$product->subdanh_muc_id;
         // $this->inputs=$product->attributeValues->where('product_id',$product->id)->unique('product_attribute_id')->pluck('product_attribute_id');
         // $this->attr_array=$product->attributeValues->where('product_id',$product->id)->unique('product_attribute_id')->pluck('product_attribute_id');
 
@@ -79,18 +87,16 @@ class AdminEditProductComponent extends Component
 
     public function updateProduct(){
         $this->validate( [
-            'name'=>'required',
-            'slug'=>'required',
-            'short_desc' => "required",
-            'desc'=>"required",
-            'regular_price'=>'required | numeric ',
-            'sale_price'=>'numeric',
-            'sku'=>'required',
-            'stock_status'=>'required',
-            'featured'=>'required',
-            'quanity'=>'required',
+          
             // 'image'=>'required ',
-            'category_id'=>'required'
+            'category_id'=>'nullable',
+            'keyword' => 'nullable|string',
+            'man_hinh' => 'nullable|string',
+            'kich_thuoc' => 'nullable|string',
+            'dung_luong_pin' => 'nullable|string',
+            'cong_suat_sac' => 'nullable|string',
+            'thoi_luong_tai_nghe' => 'nullable|string',
+            'cong_sac' => 'nullable|string'
 
         ]);
         $product= Product::find($this->product_id);
@@ -104,6 +110,14 @@ class AdminEditProductComponent extends Component
         $product->trang_thai_ton_kho=$this->stock_status;
         $product->featured=$this->featured;
         $product->so_luong=$this->quanity;
+        $keywordsArray = array_map('trim', explode(',', $this->keyword));
+        $product->keyword = json_encode($keywordsArray);
+        $product->man_hinh = $this->man_hinh;
+        $product->kich_thuoc = $this->kich_thuoc;
+        $product->dung_luong_pin = $this->dung_luong_pin;
+        $product->cong_suat_sac = $this->cong_suat_sac;
+        $product->thoi_luong_tai_nghe = $this->thoi_luong_tai_nghe;
+        $product->cong_sac = $this->cong_sac;
         if($this->newImage){
             // unlink('assets/imgs/products/'.$product->image);
             $imageName = Carbon::now()->timestamp.'.'.$this->newImage->extension();
@@ -133,9 +147,9 @@ class AdminEditProductComponent extends Component
         // $product->images= $imagesname;
         
         if($this->scategory_id){
-            $product->subcategory_id=$this->scategory_id;
+            $product->subdanh_muc_id=$this->scategory_id;
         }
-        $product->category_id=$this->category_id;
+        $product->danh_muc_id=$this->category_id;
         $product->save();
         // AttributeValue::where('product_id',$product->id)->delete();
         // foreach($this->attr_values as $key=>$attr_value)
@@ -155,8 +169,8 @@ class AdminEditProductComponent extends Component
     public function render()
     {
         $scategories=Subcategory::where('category_id',$this->category_id)->get();
-        $pattrs=ProductAttribute::all();
+        // $pattrs=ProductAttribute::all();
         $categories=Category::orderBy('ten','ASC')->get();
-        return view('livewire.admin.admin-edit-product-component',['categories'=>$categories,'pattrs'=>$pattrs,'scategories'=>$scategories]);
+        return view('livewire.admin.admin-edit-product-component',['categories'=>$categories,'scategories'=>$scategories]);
     }
 }

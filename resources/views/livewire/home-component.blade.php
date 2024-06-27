@@ -595,3 +595,34 @@
 
     </main>
 </div>
+<style>
+    .product-cart-wrap {
+        min-height: 400px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        
+    }
+    
+    .product-img img {
+        width: 100%;
+        height: auto;
+        height: 290px; /* Adjust based on your requirements */
+        object-fit: cover;
+    }
+    
+    .product-content-wrap {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    
+    .product-content-wrap h2 {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+  
+    </style>

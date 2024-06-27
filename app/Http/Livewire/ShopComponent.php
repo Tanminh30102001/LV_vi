@@ -46,28 +46,28 @@ class ShopComponent extends Component
     public function render()
     {
       
-    //     $query = Product::whereBetween('regular_price', [$this->min_value, $this->max_value]);
+        $query = Product::whereBetween('gia', [$this->min_value, $this->max_value]);
 
-    // if ($this->orderBy == 'Price:Low to High') {
-    //     $sortedProducts = $query->orderBy('regular_price', 'ASC')->paginate($this->pageSize);
-    // } elseif ($this->orderBy == 'Price:High to Low') {
-    //     $sortedProducts = $query->orderBy('regular_price', 'DESC')->paginate($this->pageSize);
-    // } elseif ($this->orderBy == 'Sort by Newness') {
-    //     $sortedProducts = $query->orderBy('created_at', 'DESC')->paginate($this->pageSize);
-    // } else {
-    //     $sortedProducts = $query->paginate($this->pageSize);
-    // }
-    $query = Product::whereBetween('gia', [$this->min_value, $this->max_value]);
-    
     if ($this->orderBy == 'Price:Low to High') {
-        $sortedProducts = $query->orderBy('gia', 'ASC')->get();
+        $sortedProducts = $query->orderBy('gia', 'ASC')->paginate($this->pageSize);
     } elseif ($this->orderBy == 'Price:High to Low') {
-        $sortedProducts = $query->orderBy('gia', 'DESC')->get();
+        $sortedProducts = $query->orderBy('gia', 'DESC')->paginate($this->pageSize);
     } elseif ($this->orderBy == 'Sort by Newness') {
-        $sortedProducts = $query->orderBy('created_at', 'DESC')->get();
+        $sortedProducts = $query->orderBy('created_at', 'DESC')->paginate($this->pageSize);
     } else {
-        $sortedProducts = $query->get();
+        $sortedProducts = $query->paginate($this->pageSize);
     }
+    // $query = Product::whereBetween('gia', [$this->min_value, $this->max_value]);
+    
+    // if ($this->orderBy == 'Price:Low to High') {
+    //     $sortedProducts = $query->orderBy('gia', 'ASC')->get();
+    // } elseif ($this->orderBy == 'Price:High to Low') {
+    //     $sortedProducts = $query->orderBy('gia', 'DESC')->get();
+    // } elseif ($this->orderBy == 'Sort by Newness') {
+    //     $sortedProducts = $query->orderBy('created_at', 'DESC')->get();
+    // } else {
+    //     $sortedProducts = $query->get();
+    // }
     $categories = Category::orderBy('ten', 'ASC')->get();
     if(Auth::check()){
         Cart::instance('cart')->store(Auth::user()->email);

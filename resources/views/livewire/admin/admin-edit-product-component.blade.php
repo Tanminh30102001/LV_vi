@@ -76,13 +76,13 @@
                                         <p class="text-danger">{{$message}} </p>
                                         @enderror
                                     </div>
-                                    <div class="mb-3 mt-3">
+                                    {{-- <div class="mb-3 mt-3">
                                         <label for="sku" class="form-label"> Số hiệu</label>
                                         <input type="text" name="sku" class="form-control" placeholder="Nhập số hiệu" wire:model="sku"/> 
                                         @error('sku')
                                         <p class="text-danger">{{$message}} </p>
                                         @enderror
-                                    </div>
+                                    </div> --}}
                                     <div class="mb-3 mt-3">
                                         <label for="stock_stauts" class="form-label" > Tình trạng tồn kho</label>
                                         <select class="form-control" name="stock_status"wire:model="stock_status" >
@@ -143,7 +143,7 @@
                                         <select class="form-control" name="category_id" wire:model="category_id">
                                             <option value="">Select Category</option>  
                                             @foreach ($categories as $category)
-                                                <option value="{{$category->id}}">{{$category->name}}</option>
+                                                <option value="{{$category->id}}">{{$category->ten}}</option>
                                             @endforeach
                                         </select>
                                         @error('category_id')
@@ -156,11 +156,49 @@
                                         <select class="form-control" name="subcategory_id" wire:model="scategory_id">
                                             <option value="">None</option>  
                                             @foreach ($scategories as $subcategory)
-                                                <option value="{{$subcategory->id}}">{{$subcategory->name}}</option>
+                                                <option value="{{$subcategory->id}}">{{$subcategory->ten}}</option>
                                             @endforeach
                                         </select>
                                     </div>
-                                           
+                                    <div class="form-group">
+                                        <label for="keyword">Keyword</label>
+                                        <input type="text" id="keyword" wire:model.lazy="keyword" 
+                                            class="form-control">
+                                    </div>
+    
+                                    <div class="form-group">
+                                        <label for="man_hinh">Màn Hình</label>
+                                        <input type="text" id="man_hinh" wire:model="man_hinh" class="form-control">
+                                    </div>
+    
+                                    <div class="form-group">
+                                        <label for="kich_thuoc">Kích Thước</label>
+                                        <input type="text" id="kich_thuoc" wire:model="kich_thuoc"
+                                            class="form-control">
+                                    </div>
+    
+                                    <div class="form-group">
+                                        <label for="dung_luong_pin">Dung Lượng Pin</label>
+                                        <input type="text" id="dung_luong_pin" wire:model="dung_luong_pin"
+                                            class="form-control">
+                                    </div>
+    
+                                    <div class="form-group">
+                                        <label for="cong_suat_sac">Công Suất Sạc</label>
+                                        <input type="text" id="cong_suat_sac" wire:model="cong_suat_sac"
+                                            class="form-control">
+                                    </div>
+    
+                                    <div class="form-group">
+                                        <label for="thoi_luong_tai_nghe">Thời Lượng Tai Nghe</label>
+                                        <input type="text" id="thoi_luong_tai_nghe" wire:model="thoi_luong_tai_nghe"
+                                            class="form-control">
+                                    </div>
+    
+                                    <div class="form-group">
+                                        <label for="cong_sac">Cổng Sạc</label>
+                                        <input type="text" id="cong_sac" wire:model="cong_sac" class="form-control">
+                                    </div> 
                                     {{-- <div class="mb-2 mt-2">
                                         <label for="subcategory_id" class="form-label" >Product Attributes</label>
                                         <div class="row"> 

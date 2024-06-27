@@ -35,14 +35,14 @@
                             </div>
                             <div class="sort-by-product-area">
                                 <div class="sort-by-cover mr-10">
-                                    {{-- <div class="sort-by-product-wrap">
+                                    <div class="sort-by-product-wrap">
                                         <div class="sort-by">
                                             <span><i class="fi-rs-apps"></i>Show:</span>
                                         </div>
                                         <div class="sort-by-dropdown-wrap">
                                             <span> {{$pageSize}} <i class="fi-rs-angle-small-down"></i></span>
                                         </div>
-                                    </div> --}}
+                                    </div>
                                     <div class="sort-by-dropdown">
                                         <ul>
                                             <li><a  class="{{$pageSize==10 ? 'active': ''}}" href="#" wire:click.prevent="changePageSize(10)">10</a></li>
@@ -56,7 +56,7 @@
                                 <div class="sort-by-cover">
                                     <div class="sort-by-product-wrap">
                                         <div class="sort-by">
-                                            <span><i class="fi-rs-apps-sort"></i>{{__('Sắp xếp theo')}}:</span>
+                                            <span><i class="fi-rs-apps-sort"></i>Sort by:</span>
                                         </div>
                                         <div class="sort-by-dropdown-wrap">
                                             <span>{{$orderBy}} <i class="fi-rs-angle-small-down"></i></span>
@@ -64,15 +64,16 @@
                                     </div>
                                     <div class="sort-by-dropdown">
                                         <ul>
-                                            <li><a  class="{{$orderBy=='Default Sorting' ? 'active': ' '}}"href="#"wire:click.prevent="changeOrderBy('Default Sorting')">{{__('Mặc định')}}</a></li>
-                                            <li><a  class="{{$orderBy=='Price:Low to High' ? 'active': ' '}}"href="#"wire:click.prevent="changeOrderBy('Price:Low to High')">{{__('Giá: từ thấp tới cao')}}</a></li>
-                                            <li><a  class="{{$orderBy=='Price:High to Low' ? 'active': ' '}}"href="#"wire:click.prevent="changeOrderBy('Price:High to Low')">{{__('Giá: từ cao tới thấp ')}}</a></li>
-                                            <li><a  class="{{$orderBy=='Sort by Newness' ? 'active': ' '}}"href="#"wire:click.prevent="changeOrderBy('Sort by Newness')">{{__('Sản phẩm mới nhất ')}}</a></li>
+                                            <li><a  class="{{$orderBy=='Default Sorting' ? 'active': ' '}}"href="#"wire:click.prevent="changeOrderBy('Default Sorting')">Default Sorting</a></li>
+                                            <li><a  class="{{$orderBy=='Price:Low to High' ? 'active': ' '}}"href="#"wire:click.prevent="changeOrderBy('Price:Low to High')">Price: Low to High</a></li>
+                                            <li><a  class="{{$orderBy=='Price:High to Low' ? 'active': ' '}}"href="#"wire:click.prevent="changeOrderBy('Price:High to Low')">Price: High to Low</a></li>
+                                            <li><a  class="{{$orderBy=='Sort by Newness' ? 'active': ' '}}"href="#"wire:click.prevent="changeOrderBy('Sort by Newness')">Sort by Newness</a></li>
                                             
                                         </ul>
                                     </div>
                                 </div>
                             </div>
+                            
                         </div>
 
                         <div class="row product-grid-3">
@@ -131,7 +132,7 @@
                             </div>
                             @endforeach
                         <!--pagination-->
-                        {{-- {{$products->links()}} --}}
+                        {{$products->links()}}
                         <div class="pagination-area mt-15 mb-sm-5 mb-lg-0">
                            
                         </div>
@@ -187,7 +188,7 @@
                                     <div id="slider-range" wire:ignore></div>
                                     <div class="price_slider_amount">
                                         <div class="label-input">
-                                            <span>Range:</span><span class="text-info">đ{{$min_value}}</span>-<span class="text-info">đ{{$max_value}}</span>
+                                            <span>Range:</span><span class="text-info">đ{{$min_value}}</span>-<span class="text-info">{{$max_value}}đ</span>
                                         </div>
                                     </div>
                                 </div>
@@ -202,7 +203,7 @@
                             @foreach($newProds as $newProd)
                             <div class="single-post clearfix">
                                 <div class="image">
-                                    <img class="default-img" src="{{asset('assets/imgs/products')}}/{{$item->image}}" alt="{{$item->ten}}">
+                                    <img class="default-img" src="{{asset('assets/imgs/products')}}/{{$newProd->image}}" alt="{{$newProd->ten}}">
                                 </div>
                                 <div class="content pt-10">
                                     <h5><a href="product-details.html">{{$newProd->ten}}</a></h5>
@@ -228,7 +229,7 @@ var sliderrange = $('#slider-range');
         sliderrange.slider({
             range: true,
             min: 0,
-            max: 100000,
+            max: 1000000,
             values: [0,1000000],
             slide: function(event, ui) {
                 // amountprice.val("$" + ui.values[0] + " - $" + ui.values[1]);

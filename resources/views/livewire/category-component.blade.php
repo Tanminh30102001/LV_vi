@@ -38,6 +38,7 @@
                                     </div>
                                     <div class="sort-by-dropdown">
                                         <ul>
+                                            <li><a  class="{{$pageSize==5 ? 'active': ''}}" href="#" wire:click.prevent="changePageSize(5)">5</a></li>
                                             <li><a  class="{{$pageSize==10 ? 'active': ''}}" href="#" wire:click.prevent="changePageSize(10)">10</a></li>
                                             <li><a  class="{{$pageSize==15 ? 'active': ''}}" href="#"wire:click.prevent="changePageSize(15)">15</a></li>
                                             <li><a  class="{{$pageSize==20 ? 'active': ''}}" href="#"wire:click.prevent="changePageSize(20)">20</a></li>
@@ -193,7 +194,7 @@
                             @foreach($newProds as $newProd)
                             <div class="single-post clearfix">
                                 <div class="image">
-                                    <img class="default-img" src="{{asset('assets/imgs/products')}}/{{$item->image}}" alt="{{$item->ten}}">
+                                    <img class="default-img" src="{{asset('assets/imgs/products')}}/{{$newProd->image}}" alt="{{$newProd->ten}}">
                                 </div>
                                 <div class="content pt-10">
                                     <h5><a href="product-details.html">{{$newProd->ten}}</a></h5>

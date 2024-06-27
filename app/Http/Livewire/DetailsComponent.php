@@ -5,7 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Category;
 use App\Models\Product;
 use Livewire\Component;
-use Cart;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
 class DetailsComponent extends Component
 {
@@ -50,7 +50,7 @@ class DetailsComponent extends Component
     {
 
         $product = Product::where('slug', $this->slug)->first();
-        $rproducts = Product::where('danh_muc_id', $product->category_id)->inRandomOrder()->limit(4)->get();
+        $rproducts = Product::where('danh_muc_id', $product->danh_muc_id)->limit(4)->get();
         $nproducts = Product::latest()->take(4)->get();
         $categories = Category::orderBy('ten', 'DESC')->get();
         return view('livewire.details-component', ['product' => $product, 'rproducts' => $rproducts, 'nproducts' => $nproducts, 'categories' => $categories]);

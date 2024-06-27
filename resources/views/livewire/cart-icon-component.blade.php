@@ -8,17 +8,18 @@
     <div class="cart-dropdown-wrap cart-dropdown-hm2">
         <ul>
             @foreach (Cart::instance('cart')->content() as $item)
-                
-            
             <li>
                 <div class="shopping-cart-img">
-                    <a href="{{route('product.details',['slug'=>$item->model->slug])}}"><img alt="{{$item->model->name}}" src="{{asset('assets/imgs/products')}}/{{$item->model->image}}"> </a>
+                    <a href="{{route('product.details', ['slug' => $item->model->slug])}}">
+                        <img alt="{{$item->model->ten}}" src="{{asset('assets/imgs/products')}}/{{$item->model->image}}">
+                    </a>
                 </div>
                 <div class="shopping-cart-title">
-                    <h4><a href="{{route('product.details',['slug'=>$item->model->slug])}}">{{$item->model->ten}}</a></h4>
+                    <h4 title="{{$item->model->ten}}">
+                        <a href="{{route('product.details', ['slug' => $item->model->slug])}}" class="product-name">{{$item->model->ten}}</a>
+                    </h4>
                     <h4><span>{{$item->qty}} × </span>${{$item->model->gia}}</h4>
                 </div>
-                
             </li>
             @endforeach
             
@@ -34,3 +35,12 @@
         </div>
     </div>
 </div>
+<style>
+    .product-name {
+        display: inline-block;
+        max-width: 150px; /* Điều chỉnh kích thước theo nhu cầu */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    </style>

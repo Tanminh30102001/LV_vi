@@ -180,9 +180,9 @@
                                     <li class="nav-item">
                                         <a class="nav-link active" id="Description-tab" data-bs-toggle="tab" href="#Description">{{__('Mô tả')}}</a>
                                     </li>
-                                    {{-- <li class="nav-item">
+                                    <li class="nav-item">
                                         <a class="nav-link" id="Additional-info-tab" data-bs-toggle="tab" href="#Additional-info">{{__('Thông tin thêm')}}</a>
-                                    </li> --}}
+                                    </li>
                                     <li class="nav-item">
                                         <a class="nav-link" id="Reviews-tab" data-bs-toggle="tab" href="#Reviews">{{__("Đánh giá")}} ({{$product->orderDetails->where('trang_thai_danh_gia',1)->count()}})</a>
                                     </li>
