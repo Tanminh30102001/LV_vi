@@ -8,7 +8,7 @@ use App\Models\Order;
 use App\Models\OrderDetails;
 use App\Models\Product;
 use Carbon\Carbon;
-use Cart;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Error;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -94,62 +94,67 @@ class CheckOutComponent extends Component
         }
     }
     public function placeOrder()
-    {
-       
-        $this->validate([
+{
+    $this->validate([
+        'user_phone' => "required|numeric",
+        "user_address" => "required",
+    ]);
 
-            'user_phone' => "required|numeric",
-            "user_address" => "required",
-        ]);
-        $order = new Order();
-        $order->user_id = Auth::user()->id;
-        // $order->total=str_replace(',','',Cart::instance('cart')->total()) ;
-        // $order->total=session()->get('checkout')['total'];
-        $order->ma_don_hang = rand(1000, 999999999);
+    // Tạo đơn hàng mới
+    $order = new Order();
+    $order->user_id = Auth::user()->id;
+    $order->ma_don_hang = rand(1000, 999999999);
 
-        if (session()->has('coupon')) {
-         
-            $order->tong_tien = str_replace(',', '', session()->get('checkout')['total']);
-            $order->giam_gia = session()->get('checkout')['discount'];
-            $order->tam_tinh = session()->get('checkout')['subtotal'];
-        }
+    // Tính toán tổng tiền, giảm giá, và tạm tính
+    if (session()->has('coupon')) {
+        $order->tong_tien = str_replace(',', '', session()->get('checkout')['total']);
+        $order->giam_gia = session()->get('checkout')['discount'];
+        $order->tam_tinh = session()->get('checkout')['subtotal'];
+    } else {
         $order->tong_tien = str_replace(',', '', Cart::instance('cart')->total());
-        $order->giam_gia = session()->get('checkout')['discount']??0;
+        $order->giam_gia = session()->get('checkout')['discount'] ?? 0;
         $order->tam_tinh = Cart::instance('cart')->subtotal();
-        $order->email = Auth::user()->email;
-        $order->user_ten = Auth::user()->ten;
-        $order->user_sdt = $this->user_phone;
-        $order->user_diachi = $this->user_address;
-        $order->ghi_chu = $this->notes;
-        $order->trang_thai = false;
-        $this->process = true;
-        $order->save();
-        foreach (Cart::instance('cart')->content() as $item) {
-            $orderDetails = new OrderDetails();
-            $orderDetails->san_pham_id = $item->id;
-            $orderDetails->don_hang_id = $order->id;
-            $orderDetails->gia_tien = $item->price;
-            $orderDetails->so_luong = $item->qty;
-            $product = Product::find($orderDetails->san_pham_id);
-            $product->so_luong = $product->so_luong - $orderDetails->so_luong;
-            // $option = [
-            //     'color' => $item->options->color,
-            //     'size' => $item->options->size
-            // ];
-
-            // $orderDetails->options = json_encode($option);;
-
-            $product->save();
-            $orderDetails->save();
-        }
-        // $order_id=$order->id;
-        // $orderD =OrderDetails::where('order_id',$order_id)->get();
-        Mail::to($order->email)->send(new confirmOrderMail($order));
-        Cart::instance('cart')->destroy();
-        session()->forget('coupon');
-        session()->flash('message', 'Orderd successfully');
-        return redirect(route('thankyou'));
     }
+
+    // Thông tin người dùng và ghi chú
+    $order->email = Auth::user()->email;
+    $order->user_ten = Auth::user()->ten;
+    $order->user_sdt = $this->user_phone;
+    $order->user_diachi = $this->user_address;
+    $order->ghi_chu = $this->notes;
+    $order->trang_thai = false; 
+
+    $order->save();
+
+
+    foreach (Cart::instance('cart')->content() as $item) {
+        $product = Product::find($item->id);
+        if ($item->qty > $product->so_luong) {
+            $order->delete();
+            Cart::instance('cart')->remove($item->rowId);
+           return session()->flash('error', 'Sản phẩm ' . $product->ten . ' vừa mới hết hàng. Vui lòng mua sản phẩm khác.');
+
+        }
+        // dd($item->qty > $product->so_luong);
+        $orderDetails = new OrderDetails();
+        $orderDetails->san_pham_id = $item->id;
+        $orderDetails->don_hang_id = $order->id;
+        $orderDetails->gia_tien = $item->price;
+        $orderDetails->so_luong = $item->qty;
+
+        $product->so_luong -= $item->qty;
+        $product->save();
+
+        $orderDetails->save();
+    }
+
+    Mail::to($order->email)->send(new confirmOrderMail($order));
+    Cart::instance('cart')->destroy();
+    session()->forget('coupon');
+    session()->flash('message', 'Đặt hàng thành công.');
+    return redirect(route('thankyou'));
+}
+
 
     public function render()
     {
