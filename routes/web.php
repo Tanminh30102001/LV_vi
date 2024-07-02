@@ -12,6 +12,7 @@ use App\Http\Livewire\Admin\AdminAttributeComponent;
 use App\Http\Livewire\Admin\AdminCategoriesComponent;
 use App\Http\Livewire\Admin\AdminContactComponent;
 use App\Http\Livewire\Admin\AdminCouponComponent;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Livewire\HomeComponent;
@@ -60,7 +61,10 @@ use Illuminate\Support\Facades\Session;
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
-Route::get('/',HomeComponent::class)->name('home.index');
+// Auth::routes([
+//     'verify'=>true
+// ]);
+Route::get('/',HomeComponent::class)->name('home.index')->middleware('verified');
 Route::get('/shop',ShopComponent::class)->name('shop');
 Route::get('/cart',CartComponent::class)->name('shop.cart');
 Route::get('/checkout',CheckOutComponent::class)->name('shop.checkout');
