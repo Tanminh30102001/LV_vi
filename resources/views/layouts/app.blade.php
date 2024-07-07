@@ -132,7 +132,7 @@
                                             </div>
                                         </li>
                                         @else
-                                        <li><a href="{{route('product.category',['slug'=>$category->slug])}}"><i class="surfsidemedia-font-desktop"></i>{{$category->name}}</a></li>
+                                        <li><a href="{{route('product.category',['slug'=>$category->slug])}}"><i class="surfsidemedia-font-desktop"></i>{{$category->ten}}</a></li>
                                         @endif
                                         
                                         @endforeach
