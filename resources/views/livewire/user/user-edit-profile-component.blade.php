@@ -66,7 +66,7 @@
         function showCustomToast() {
             Toastify({
                 text: 'Update thành công',
-                duration: 5000, // Thời gian hiển thị thông báo (4 giây)
+                duration: 3000, // Thời gian hiển thị thông báo (4 giây)
                 close: true, // Cho phép người dùng đóng thông báo
                 gravity: "top", // Vị trí hiển thị (bottom, top, left, right)
                 position: "right", // Vị trí cụ thể (left, center, right)

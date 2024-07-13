@@ -46,7 +46,7 @@ $this->batteryCapacities = Product::whereNotNull('dung_luong_pin')
              ->distinct()
              ->pluck('dung_luong_pin')
              ->toArray();
-
+//SELECT DISTINCT dung_luong_pin FROM products WHERE dung_luong_pin IS NOT NULL;
 $this->chargingPowers = Product::whereNotNull('cong_suat_sac')
           ->select('cong_suat_sac')
           ->distinct()

@@ -64,10 +64,10 @@ use Illuminate\Support\Facades\Session;
 // Auth::routes([
 //     'verify'=>true
 // ]);
-Route::get('/',HomeComponent::class)->name('home.index')->middleware('verified');
-Route::get('/shop',ShopComponent::class)->name('shop');
-Route::get('/cart',CartComponent::class)->name('shop.cart');
-Route::get('/checkout',CheckOutComponent::class)->name('shop.checkout');
+Route::get('/',HomeComponent::class)->name('home.index');
+Route::get('/shop',ShopComponent::class)->name('shop')->middleware('verified');
+Route::get('/cart',CartComponent::class)->name('shop.cart')->middleware('verified');
+Route::get('/checkout',CheckOutComponent::class)->name('shop.checkout')->middleware('verified');
 // Route::middleware('auth')->group(function () {
 //     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 //     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

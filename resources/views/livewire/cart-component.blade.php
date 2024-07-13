@@ -19,13 +19,13 @@
                             <table class="table shopping-summery text-center clean">
                                 <thead>
                                     <tr class="main-heading">
-                                        <th scope="col">Image</th>
-                                        <th scope="col">Name</th>
+                                        <th scope="col">Ảnh</th>
+                                        <th scope="col">Tên sản phẩm</th>
                                         {{-- <th scope="col">Options</th> --}}
-                                        <th scope="col">Price</th>
-                                        <th scope="col">Quantity</th>
-                                        <th scope="col">Subtotal</th>
-                                        <th scope="col">Remove</th>
+                                        <th scope="col">Giá</th>
+                                        <th scope="col">Số lượng </th>
+                                        <th scope="col">Tạm tính</th>
+                                        <th scope="col">Xóa </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -83,17 +83,17 @@
                                                      
                                     <tr>
                                         <td colspan="6" class="text-end">
-                                            <a href="#" class="text-muted"wire:click.prevent="clearAll()"> <i class="fi-rs-cross-small"></i> Clear Cart</a>
+                                            <a href="#" class="text-muted"wire:click.prevent="clearAll()"> <i class="fi-rs-cross-small"></i> Xóa giỏ hàng</a>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
                             @else
-                                    <p> No item in Cart </p>
+                                    <p> Không có sản phẩm nào trong giỏ hàng </p>
                                     @endif 
                         </div>
                         <div class="cart-action text-end">
-                            <a class="btn " href="{{route('shop')}}"><i class="fi-rs-shopping-bag mr-10" ></i>Continue Shopping</a>
+                            <a class="btn " href="{{route('shop')}}"><i class="fi-rs-shopping-bag mr-10" ></i>Tiếp tục mua sắm</a>
                         </div>
                         <div class="divider center_icon mt-50 mb-50"><i class="fi-rs-fingerprint"></i></div>
                         <div class="row mb-50">
@@ -101,7 +101,7 @@
                               
                                 <div class="mb-30 mt-50">
                                     <div class="heading_s1 mb-3">
-                                        <h4>Apply Coupon</h4>
+                                        <h4>Áp dụng mã giảm giá</h4>
                                     </div>
                                     <div class="total-amount">
                                         <div class="total-amount">
@@ -116,10 +116,10 @@
                                                     <form wire:submit.prevent="applyCoupon">
                                                         <div class="form-row row justify-content-center">
                                                             <div class="form-group col-lg-6">
-                                                                <input class="font-medium" name="Coupon" style="width:100%" placeholder="Enter Your Coupon" wire:model="couponcode" >
+                                                                <input class="font-medium" name="Coupon" style="width:100%" placeholder="Nhập mã giảm giá của bạn" wire:model="couponcode" >
                                                             </div>
                                                             <div class="form-group col-lg-6">
-                                                                <button class="btn btn-sm" type="submit" ><i class="fi-rs-label mr-10"></i>Apply</button>
+                                                                <button class="btn btn-sm" type="submit" ><i class="fi-rs-label mr-10"></i>Sử dụng</button>
                                                             </div>
                                                         </div>
                                                     </form>
@@ -138,34 +138,34 @@
                                         <table class="table">
                                             <tbody>
                                                 <tr>
-                                                    <td class="cart_total_label">Cart Subtotal</td>
+                                                    <td class="cart_total_label">Tạm tính đơn hàng</td>
                                                     <td class="cart_total_amount"><span class="font-lg fw-900 text-brand">đ{{Cart::subtotal()}}</span></td>
                                                 </tr>
                                                 @if(Session::has('coupon'))
                                                 <tr>
-                                                    <th>Discount({{Session::get('coupon')['code']}}) <a href="" wire:click.prevent="removeCoupon"><i class="fi-rs-cross"></i> </a> </th>
+                                                    <th>Giảm giá({{Session::get('coupon')['code']}}) <a href="" wire:click.prevent="removeCoupon"><i class="fi-rs-cross"></i> </a> </th>
                                                     <td colspan="2"><em>{{Session::get('checkout')['discount']}} </em></td>
                                                 </tr>
                                                 <tr>
-                                                    <th>Sub Total after discount</th>
+                                                    <th>Tạm tính sau giảm giá</th>
                                                     <td colspan="2"><em>{{$subtotalAfterDiscount}}</em></td>
                                                 </tr>
                                                 <tr>
-                                                    <th>Shipping</th>
+                                                    <th>Phí giao hàng</th>
                                                     <td colspan="2"><em>đ{{config('cart.tax')}}</em></td>
                                                 </tr>
                                                 <tr>
-                                                    <th>Total Bill</th>
+                                                    <th>Tổng đơn</th>
                                                     <td colspan="2"><em>{{$totalAfterDiscount}}</em></td>
                                                 </tr>
 
                                                 @else
                                                 <tr>
-                                                    <td class="cart_total_label">Shipping</td>
+                                                    <td class="cart_total_label">Phí giao hàng</td>
                                                     <td class="cart_total_amount"> <i class="ti-gift mr-5"></i> đ{{config('cart.tax')}}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="cart_total_label">Total</td>
+                                                    <td class="cart_total_label">Tổng tiền</td>
                                                     <td class="cart_total_amount"><strong><span class="font-xl fw-900 text-brand">đ{{Cart::total()}}</span></strong></td>
                                                 </tr>
                                                 @endif
@@ -173,7 +173,7 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <a href="{{route('shop.checkout')}}" id="checkoutButton" class="btn "> <i class="fi-rs-box-alt mr-10"></i> Proceed To CheckOut</a>
+                                    <a href="{{route('shop.checkout')}}" id="checkoutButton" class="btn "> <i class="fi-rs-box-alt mr-10"></i> Tiến hành thanh toán</a>
                                 </div>
                             </div>
                         </div>

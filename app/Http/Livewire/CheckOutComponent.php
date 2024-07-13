@@ -135,16 +135,13 @@ class CheckOutComponent extends Component
            return session()->flash('error', 'Sản phẩm ' . $product->ten . ' vừa mới hết hàng. Vui lòng mua sản phẩm khác.');
 
         }
-        // dd($item->qty > $product->so_luong);
         $orderDetails = new OrderDetails();
         $orderDetails->san_pham_id = $item->id;
         $orderDetails->don_hang_id = $order->id;
         $orderDetails->gia_tien = $item->price;
         $orderDetails->so_luong = $item->qty;
-
         $product->so_luong -= $item->qty;
         $product->save();
-
         $orderDetails->save();
     }
 

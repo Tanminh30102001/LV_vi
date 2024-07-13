@@ -1,3 +1,29 @@
+<style>
+
+   .badge-success {
+            color: #0d6832 !important;
+        }
+
+        .badge-warning {
+            color: #73510d !important;
+        }
+
+        .badge-danger {
+            color: #af233a !important;
+        }
+
+        .badge-primary {
+            color: #2c58a0 !important;
+        }
+
+        .badge-info {
+            color: #1c657d !important;
+        }
+
+        .badge-secondary {
+            color: #40464f !important;
+        }
+</style>
 <div>
    
     <div class="container">
@@ -14,7 +40,7 @@
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                     Tổng Doang thu </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">đ{{$totalRevenue}}</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">đ {{ format_number($totalRevenue)}}</div>
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -32,7 +58,7 @@
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                     Doanh thu(Từng ngày ) </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">đ{{$dailyRevenue}}</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">đ{{format_number($dailyRevenue)}}</div>
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -50,7 +76,7 @@
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                     Doanh thu (Tháng này) </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">đ{{$monthlyRevenue}}</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">đ{{format_number($monthlyRevenue)}}</div>
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -135,10 +161,33 @@
                         <tr>
                             {{-- <td> {{$item->id}}</td> --}}
                             
-                            <td>{{$item->id}}</td>
-                            <td>{{$item->status== 1?'Payed':'Not Pay'}}</td>
-                            <td>{{$item->status_delivery}}</td>
-                            <td> ${{$item->total}}</td>
+                            <td>{{$item->ma_don_hang}}</td>
+                            <td>
+                                @if ($item->trang_thai == 1)
+                                    <span class="badge badge-success">Đã thanh toán</span>
+                                @else
+                                    <span class="badge badge-warning">Chưa thanh toán</span>
+                                @endif
+                            </td>
+                            <td>
+                                @if ($item->tinh_trang_giao_hang == 'ordered')
+                                    <span
+                                        class="badge badge-pill badge-secondary">{{ $item->translateTinhTrangGiaoHang($item->tinh_trang_giao_hang) }}</span>
+                                @elseif ($item->tinh_trang_giao_hang == 'accepted')
+                                    <span
+                                        class="badge badge-pill badge-info">{{ $item->translateTinhTrangGiaoHang($item->tinh_trang_giao_hang) }}</span>
+                                @elseif ($item->tinh_trang_giao_hang == 'delivering')
+                                    <span
+                                        class="badge badge-pill badge-dark">{{ $item->translateTinhTrangGiaoHang($item->tinh_trang_giao_hang) }}</span>
+                                @elseif ($item->tinh_trang_giao_hang == 'canceled')
+                                    <span
+                                        class="badge badge-pill badge-danger">{{ $item->translateTinhTrangGiaoHang($item->tinh_trang_giao_hang) }}</span>
+                                @else
+                                    <span
+                                        class="badge badge-pill badge-success">{{ $item->translateTinhTrangGiaoHang($item->tinh_trang_giao_hang) }}</span>
+                                @endif
+                            </td>
+                            <td> {{format_number($item->tong_tien)}}</td>
                             
                         </tr>
                     @endforeach

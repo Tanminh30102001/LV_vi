@@ -22,10 +22,10 @@
         <div class="row">
             <div class="col-12">    
                         <div class="col col-lg-2" style="padding-top:100px">
-                            <a href="{{route('user.order')}}" class="btn btn-danger" >Your all Order</a>
+                            <a href="{{route('user.order')}}" class="btn btn-danger" >Tất cả đơn hàng của bạn</a>
                         </div>
                         <div class="col-md-auto">
-                            <div class="text-center"> <h1>Your Order </h1> 
+                            <div class="text-center"> <h1>Chi tiết đơn hàng </h1> 
                         </div> 
                         <div class="col col-lg-2"></div>
                     <div class="row">
@@ -62,11 +62,12 @@
                             </div>
                             <div class="card-body p-4">
                               <div class="d-flex justify-content-between align-items-center mb-4">
-                                <p class="lead fw-normal mb-0" style="color: #a8729a;">Receipt</p>
-                                <p class="small text-muted mb-0">
-                                    @if($order->tinh_trang_giao_hang != 'canceled' && $order->tinh_trang_giao_hang!='delivered')
-                                    <a href="#" id="showFormButton"class="btn btn-danger" wire:click.prevent="showForm">Cancel Order</a> 
-                                    @endif</p>
+                                <p class="lead fw-normal mb-0" style="color: #a8729a;">Hóa đơn</p>
+                               
+                                    @if($order->tinh_trang_giao_hang !== 'canceled' && $order->tinh_trang_giao_hang !=='delivered'&& $order->tinh_trang_giao_hang !=='accepted')
+                                    <a href="#" id="showFormButton"class="btn btn-danger" wire:click.prevent="showForm">Hủy đơn hàng này</a> 
+                                    @endif
+                                
                               </div>
                              {{-- --}}
                              @foreach($order->orderDetails as $item)
@@ -80,11 +81,11 @@
                                       <p class="text-muted mb-0">{{$item->product->ten}}</p>
                                     </div>
                                     <div class="col-md-1 text-center d-flex justify-content-center align-items-center">
-                                      @php
+                                      {{-- @php
                                         $options=json_decode($item->options);
                                        
                                         
-                                      @endphp
+                                      @endphp --}}
                                       {{-- <p class="text-muted mb-0 small"> @foreach($options->color as $key => $value) {{$value}} @endforeach  </p>
                                        --}}
                                        <p class="text-muted mb-0 small">
@@ -106,7 +107,7 @@
                                     </div>
                                     <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
                                         @if($order->tinh_trang_giao_hang=='delivered'&& $item->trang_thai_danh_gia== false)
-                                        <p class="text-muted mb-0 small"><a href="{{route('user.review',['order_details_id'=>$item->id])}}"> Write Review</a></p>
+                                        <p class="text-muted mb-0 small"><a href="{{route('user.review',['order_details_id'=>$item->id])}}"> Viết đánh giá</a></p>
                                         @endif
                                     </div>
                                   </div>
@@ -120,8 +121,8 @@
                                         <div class="progress-bar" role="progressbar" style="width:
                                         @if($order->tinh_trang_giao_hang == 'ordered')
                                             0%;
-                                        @elseif($order->tinh_trang_giao_hang == 'accept order')
-                                            30%;
+                                        @elseif($order->tinh_trang_giao_hang == 'accepted')
+                                            40%;
                                         @elseif($order->tinh_trang_giao_hang == 'delivering')
                                             60%;
                                         @else
@@ -131,9 +132,10 @@
                                          border-radius: 16px; background-color: #a8729a;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
                                       </div>
                                       <div class="d-flex justify-content-around mb-1">
-                                        <p class="text-muted mt-1 mb-0 small ms-xl-5">Accept Order</p>
-                                        <p class="text-muted mt-1 mb-0 small ms-xl-5">Delivering</p>
-                                        <p class="text-muted mt-1 mb-0 small ms-xl-5">Delivered</p>
+                                        <p class="text-muted mt-1 mb-0 small ms-xl-5">Đã đặt</p>
+                                        <p class="text-muted mt-1 mb-0 small ms-xl-5">Đã xác nhận</p>
+                                        <p class="text-muted mt-1 mb-0 small ms-xl-5">Đang giao</p>
+                                        <p class="text-muted mt-1 mb-0 small ms-xl-5">Đã giao</p>
                                       </div>
                                     </div>
                                     @if($order->status_delivery=='canceled')
@@ -150,12 +152,12 @@
                               {{-- {{$order->tam_tinh - round($order->tam_tinh * (0.1/1.1),1)}} --}}
                               <div class="d-flex justify-content-between pt-2">
                                 <p class="text-muted mb-0 px-3">Mã đơn hàng: {{$order->ma_don_hang}}</p>
-                                <p class="text-muted mb-0 mx-2"><span class="fw-bold me-4">Discount</span> {{$order->giam_gia}}</p>
+                                <p class="text-muted mb-0 mx-2"><span class="fw-bold me-4">Giảm giá</span> {{$order->giam_gia}}</p>
                               </div>
                   
                               <div class="d-flex justify-content-between">
                                 <p class="text-muted mb-0 px-3">Ngày Đặt: {{$order->created_at->format('d.m.Y')}}</p>
-                                <p class="text-muted mb-0 mx-2"><span class="fw-bold me-4">Phí ship</span> {{config('cart.tax')}}</p>
+                                <p class="text-muted mb-0 mx-2"><span class="fw-bold me-4">Phí giao hàng</span> {{config('cart.tax')}}</p>
                               </div>
                   
                               <div class="d-flex justify-content-between mb-5">
