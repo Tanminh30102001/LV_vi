@@ -1,47 +1,36 @@
 <x-app-layout>   
-        <div class="container ">
-            <div class="row align-items-start">
-                <div class="col lg-6">
-                    <div class="mb-4 text-sm text-gray-600">
-                        {{ __('Bạn quên mật khẩu ư?Không sao cả . Hãy nhập địa chỉ email của mật khẩu mà bạn đã quên nào .') }}
-                    </div>
-                
-                    <!-- Session Status -->
-                    <x-auth-session-status class="mb-4" :status="session('status')" />
-                        <div class="login_wrap widget-taber-content p-30 background-white border-radius-10 mb-md-5 mb-lg-0 mb-sm-5">
-                            <div class="padding_eight_all bg-white">
-                                <div class="heading_s1 ">
-                                    <h3 class="mb-30">{{ __('Vui Lòng Nhập mật khẩu ') }}</h3>
-                                </div>
-                                <form method="POST" action="{{ route('password.email') }} " class="col lg-6">
-                                    @csrf
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8 col-sm-10">
+                <div class="card shadow-sm border-0">
+                    <div class="card-body">
+                        <h3 class="mb-4 text-center">{{ __('Bạn quên mật khẩu ư?') }}</h3>
+                        <p class="text-muted mb-4 text-center">
+                            {{ __('Không sao cả. Bạn có thể đặt lại mật khẩu ở đây') }}
+                        </p>
+                        
+                        <!-- Session Status -->
+                        <x-auth-session-status class="mb-4" :status="session('status')" />
+                        
+                        <form method="POST" action="{{ route('password.email') }}">
+                            @csrf
                             
-                                    <!-- Email Address -->
-                                    <div class="row">
-                                        <div class="col">
-                                            <div>
-                                                <x-input-label for="email" :value="__('Email')" />
-                                                <x-text-input id="email" style="column-width: 50%" class="block mt-1 " type="email" name="email" :value="old('email')" required autofocus  />
-                                                <x-input-error :messages="$errors->get('email')" class="mt-2" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                            
-                                    <div class="flex items-center justify-end mt-4">
-                                        <x-primary-button>
-                                            {{ __('Gửi ') }}
-                                        </x-primary-button>
-                                    </div>
-                                </form>
-    
+                            <!-- Email Address -->
+                            <div class="mb-3">
+                                <x-input-label for="email" :value="__('Email')" />
+                                <x-text-input id="email" class="form-control" type="email" name="email" :value="old('email')" required autofocus />
+                                <x-input-error :messages="$errors->get('email')" class="mt-2" />
                             </div>
-                        </div>
-                   
+                            
+                            <div class="d-grid">
+                                <x-primary-button class="btn btn-primary btn-block">
+                                    {{ __('Gửi') }}
+                                </x-primary-button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    
-
+    </div>
 </x-app-layout>
-

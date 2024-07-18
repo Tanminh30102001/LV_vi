@@ -132,7 +132,7 @@
                                             <td >{{ $item->ma_sp }}</td>
 
                                             <td> {{ $item->ten }}</td>
-                                            <td> {{ $item->trang_thai_ton_kho }}</td>
+                                            <td> {{ $item->so_luong }} sp</td>
                                             <td> {{ format_number($item->gia) }}</td>
                                             <td> {{ $item->category->ten }}</td>
                                             <td> {{ $item->created_at }}</td>
