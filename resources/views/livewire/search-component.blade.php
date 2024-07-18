@@ -211,7 +211,70 @@
                                     </div>
                                 </div>
                             </div>
-                          
+                            <div>
+                                <div class="list-group-item mb-10 mt-10">
+                                    <div class="widget-header position-relative">
+                                        <h5 class="widget-title mb-10">{{ __('Lọc nâng cao') }}</h5>
+                                        <div class="bt-1 border-color-1"></div>
+                                    </div>
+                            
+                                    <!-- Screen Type Filter -->
+                                    <label class="fw-900">Loại màn hình</label>
+                                    <select wire:model="selectedScreenType" class="form-select">
+                                        <option value="">{{ __('Chọn loại màn hình') }}</option>
+                                        @foreach ($screenTypes as $type)
+                                            <option value="{{ $type }}">{{ $type }}</option>
+                                        @endforeach
+                                    </select>
+                            
+                                    <!-- Phone Size Filter -->
+                                    <label class="fw-900 mt-15">Kích thước điện thoại</label>
+                                    <select wire:model="selectedPhoneSize" class="form-select">
+                                        <option value="">{{ __('Chọn kích thước') }}</option>
+                                        @foreach ($phoneSizes as $size)
+                                            <option value="{{ $size }}">{{ $size }}</option>
+                                        @endforeach
+                                    </select>
+                            
+                                    <!-- Battery Capacity Filter -->
+                                    <label class="fw-900 mt-15">Dung lượng pin</label>
+                                    <select wire:model="selectedBatteryCapacity" class="form-select">
+                                        <option value="">{{ __('Chọn dung lượng pin') }}</option>
+                                        @foreach ($batteryCapacities as $capacity)
+                                            <option value="{{ $capacity }}">{{ $capacity }}</option>
+                                        @endforeach
+                                    </select>
+                            
+                                    <!-- Charging Power Filter -->
+                                    <label class="fw-900 mt-15">Công suất sạc</label>
+                                    <select wire:model="selectedChargingPower" class="form-select">
+                                        <option value="">{{ __('Chọn công suất sạc') }}</option>
+                                        @foreach ($chargingPowers as $power)
+                                            <option value="{{ $power }}">{{ $power }}</option>
+                                        @endforeach
+                                    </select>
+                            
+                                    <!-- Charging Port Filter -->
+                                    <label class="fw-900 mt-15">Cổng sạc</label>
+                                    <select wire:model="selectedChargingPort" class="form-select">
+                                        <option value="">{{ __('Chọn cổng sạc') }}</option>
+                                        @foreach ($chargingPorts as $port)
+                                            <option value="{{ $port }}">{{ $port }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            
+                                <!-- Display Filtered Products -->
+                                <div class="products mt-15">
+                                    @foreach ($products as $product)
+                                        <div class="product-item">
+                                            <h3>{{ $product->name }}</h3>
+                                            <p>{{ $product->description }}</p>
+                                            <!-- Add other product details here -->
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
                         </div>
                         <!-- Product sidebar Widget -->
                         <div class="sidebar-widget product-sidebar  mb-30 p-30 bg-grey border-radius-10">
@@ -225,21 +288,21 @@
                                     <img class="default-img" src="{{asset('assets/imgs/products')}}/{{$newProd->image}}" alt="{{$newProd->ten}}">
                                 </div>
                                 <div class="content pt-10">
-                                    <h5><a href="product-details.html">{{$newProd->ten}}</a></h5>
+                                    <h5><a href="{{route('product.details',['slug'=>$newProd->slug])}}">{{$newProd->ten}}</a></h5>
                                     <p class="price mb-0 mt-5">{{$newProd->gia}} đ</p>
                                 </div>
                             </div>
                                 @endforeach
                             
                         </div>
-                        <div class="banner-img wow fadeIn mb-45 animated d-lg-block d-none">
+                        {{-- <div class="banner-img wow fadeIn mb-45 animated d-lg-block d-none">
                             <img src="{{asset('assets/imgs/banner/banner-11.jpg')}}" alt="">
                             <div class="banner-text">
                                 <span>Women Zone</span>
                                 <h4>Save 17% on <br>Office Dress</h4>
                                 <a href="shop.html">Shop Now <i class="fi-rs-arrow-right"></i></a>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>

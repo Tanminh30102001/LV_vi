@@ -33,6 +33,9 @@ class AuthenticatedSessionController extends Controller
        
        if ($user && Hash::check($request->input('password'),$user->mat_khau)){
             Auth::login($user);
+            if (Auth::user()->utype === 'ADM'){
+                return redirect()->intended(route('admin.dashboard'));
+            }
             $request->session()->regenerate();
             Log::info('User authenticated successfully', ['email' =>$request->all()]);
             return redirect()->intended(RouteServiceProvider::HOME);

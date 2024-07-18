@@ -305,7 +305,7 @@
                                             alt="{{ $newProd->ten }}">
                                     </div>
                                     <div class="content pt-10">
-                                        <h5><a href="product-details.html">{{ $newProd->ten }}</a></h5>
+                                        <h5><a href="{{route('product.details',['slug'=>$newProd->slug])}}">{{ $newProd->ten }}</a></h5>
                                         <p class="price mb-0 mt-5">{{ $newProd->gia }}đ</p>
 
                                     </div>

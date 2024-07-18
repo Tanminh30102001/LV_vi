@@ -143,14 +143,11 @@
                                 <nav>
                                     <ul>
                                         <li><a class="active" href="/">{{__('Trang chủ')}} </a></li>
-                                        {{-- <li><a href="about.html">{{__('Trang chủ')}} </a></li> --}}
-                                        <li><a href="{{route('shop')}}">{{__('Cửa hàng')}} </a></li>
-                                       
-                                                                          
+                                        <li><a href="{{route('shop')}}">{{__('Cửa hàng')}} </a></li>                             
                                         <li><a href="{{route('contact-us')}}">{{__('Liên hệ')}} </a></li>
                                         @auth
-                                        <li><a href="#">My Account<i class="fi-rs-angle-down"></i></a>
-                                            @if(Auth::user()->utype=='ADM')
+                                        @if(Auth::user()->utype=='ADM')
+                                        <li><a href="#">Hệ thống<i class="fi-rs-angle-down"></i></a>
                                                 <ul class="sub-menu">
                                                     <li><a href="{{route('admin.dashboard')}}">{{__('Trang chủ ADmin')}} </a></li>
                                                     <li><a href="{{route('admin.product')}}">{{__('Quản lý sản phẩm ')}} </a></li>
@@ -163,14 +160,15 @@
                                                     <li><a href="{{route('admin.coupons')}}" >{{__('Quản lý mã giảm giá  ')}} </a></li>                              
                                                 </ul>
                                             @else
+                                            <a href="#">Tài khoản của tôi<i class="fi-rs-angle-down"></i></a>
                                             <ul class="sub-menu">
-                                                
                                                 <li><a href="{{route('user.dashboard.edit',['user_id'=>Auth::user()->id])}}">{{__('Quản lý hồ sơ ')}} </a></li>   
                                                 <li><a href="{{route('user.order')}}">{{__('Quản lý đơn hàng của bạn ')}} </a></li>   
-                                                </ul>
-                                            @endif
+                                            </ul>
+                                           
                                             
                                         </li>
+                                        @endif
                                         @endif
                                     </ul>
                                 </nav>
@@ -187,43 +185,7 @@
                                 </div>
                                 <div class="header-action-icon-2">
                                     @livewire('cart-icon-component')
-                                    {{-- <div class="cart-dropdown-wrap cart-dropdown-hm2">
-                                        <ul>
-                                            <li>
-                                                <div class="shopping-cart-img">
-                                                    <a href="product-details.html"><img alt="Surfside Media" src="assets/imgs/shop/thumbnail-3.jpg"></a>
-                                                </div>
-                                                <div class="shopping-cart-title">
-                                                    <h4><a href="product-details.html">Plain Striola Shirts</a></h4>
-                                                    <h3><span>1 × </span>$800.00</h3>
-                                                </div>
-                                                <div class="shopping-cart-delete">
-                                                    <a href="#"><i class="fi-rs-cross-small"></i></a>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="shopping-cart-img">
-                                                    <a href="product-details.html"><img alt="Surfside Media" src="assets/imgs/shop/thumbnail-4.jpg"></a>
-                                                </div>
-                                                <div class="shopping-cart-title">
-                                                    <h4><a href="product-details.html">Macbook Pro 2022</a></h4>
-                                                    <h3><span>1 × </span>$3500.00</h3>
-                                                </div>
-                                                <div class="shopping-cart-delete">
-                                                    <a href="#"><i class="fi-rs-cross-small"></i></a>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                        <div class="shopping-cart-footer">
-                                            <div class="shopping-cart-total">
-                                                <h4>Total <span>$383.00</span></h4>
-                                            </div>
-                                            <div class="shopping-cart-button">
-                                                <a href="cart.html">View cart</a>
-                                                <a href="shop-checkout.php">Checkout</a>
-                                            </div>
-                                        </div>
-                                    </div> --}}
+                                   
                                 </div>
                                 <div class="header-action-icon-2 d-block d-lg-none">
                                     <div class="burger-icon burger-icon-white">

@@ -87,25 +87,28 @@
                         ?>
                         <form wire:submit.prevent="placeOrder">
                            
+                            <label for="basic-url" class="form-label">Email</label>
                             <div class="form-group">
                                 <input type="text" required="" name="email" placeholder="{{ Auth::user()->email }}" wire:model="email" @auth value="{{ Auth::user()->email }}" readonly @endauth />
                                 @error('email')
                                  <p class="text-danger">{{$message}} </p>
                                 @enderror
                             </div>
+                            <label for="basic-url" class="form-label">Tên người nhận</label>
                             <div class="form-group">
-                                <input type="text" required="" name="name" placeholder="{{ Auth::user()->ten }}" wire:model="user_name"  @auth value="{{ Auth::user()->ten }}" readonly @endauth/>
+                                <input type="text" required="" name="name" placeholder="{{ Auth::user()->ten }}" wire:model="user_name"  @auth value="{{ Auth::user()->ten }}"readonly  @endauth/>
                                 @error('user_name')
                                      <p class="text-danger">{{$message}} </p>
                                  @enderror
                             </div>
+                            <label for="basic-url" class="form-label">Số điện thoại người nhận</label>
                             <div class="form-group">
                                 <input type="text" required="" name="phone" placeholder="SĐT"wire:model="user_phone"/>
                                 @error('user_phone')
                                      <p class="text-danger">{{$message}} </p>
                                 @enderror
                             </div>
-                            
+                            <label for="basic-url" class="form-label">Địa chỉ người nhận</label>
                             <div class="form-group">
                                 <input type="text"  required="" name="address" placeholder="Địa chỉ"wire:model="user_address"/>
                                 @error('user_address')

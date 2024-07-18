@@ -18,10 +18,51 @@ class SearchComponent extends Component
     public $search_term;
     public $min_value=0;
     public $max_value=1000000;
+    
+    public $screenTypes = [];
+    public $phoneSizes = [];
+    public $batteryCapacities = [];
+    public $chargingPowers = [];
+    public $chargingPorts = [];
+
+    public $selectedScreenType;
+    public $selectedPhoneSize;
+    public $selectedBatteryCapacity;
+    public $selectedChargingPower;
+    public $selectedChargingPort;
     public function mount()
     {
         $this->fill(request()->only('q'));
         $this->search_term = '%' . $this->q . '%';
+        $this->screenTypes = Product::whereNotNull('man_hinh')
+        ->select('man_hinh')
+        ->distinct()
+        ->pluck('man_hinh')
+        ->toArray();
+
+$this->phoneSizes = Product::whereNotNull('kich_thuoc')
+      ->select('kich_thuoc')
+      ->distinct()
+      ->pluck('kich_thuoc')
+      ->toArray();
+
+$this->batteryCapacities = Product::whereNotNull('dung_luong_pin')
+             ->select('dung_luong_pin')
+             ->distinct()
+             ->pluck('dung_luong_pin')
+             ->toArray();
+//SELECT DISTINCT dung_luong_pin FROM products WHERE dung_luong_pin IS NOT NULL;
+$this->chargingPowers = Product::whereNotNull('cong_suat_sac')
+          ->select('cong_suat_sac')
+          ->distinct()
+          ->pluck('cong_suat_sac')
+          ->toArray();
+
+$this->chargingPorts = Product::whereNotNull('cong_sac')
+         ->select('cong_sac')
+         ->distinct()
+         ->pluck('cong_sac')
+         ->toArray();
     }
 
     public function store($product_id, $product_name, $product_price)
@@ -57,8 +98,24 @@ class SearchComponent extends Component
     public function render()
     {
         // $products = Product::paginate($this->pageSize);
-        $query = Product::query();
-
+        // $query = Product::query();
+        $query = Product::
+        whereBetween('gia', [$this->min_value, $this->max_value])
+        ->when($this->selectedScreenType, function($query) {
+            $query->where('ten', 'like', $this->search_term)->where('man_hinh', $this->selectedScreenType);
+        })
+        ->when($this->selectedPhoneSize, function($query) {
+            $query->where('ten', 'like', $this->search_term)->where('kich_thuoc', $this->selectedPhoneSize);
+        })
+        ->when($this->selectedBatteryCapacity, function($query) {
+            $query->where('ten', 'like', $this->search_term)->where('dung_luong_pin', $this->selectedBatteryCapacity);
+        })
+        ->when($this->selectedChargingPower, function($query) {
+            $query->where('ten', 'like', $this->search_term)->where('cong_suat_sac', $this->selectedChargingPower);
+        })
+        ->when($this->selectedChargingPort, function($query) {
+            $query->where('ten', 'like', $this->search_term)->where('cong_sac', $this->selectedChargingPort);
+        });
         // Nếu giá trị lọc giá không phải mặc định, áp dụng điều kiện lọc
         if ($this->min_value > 0 || $this->max_value < 1000000) {
             $query = $query->whereBetween('gia', [$this->min_value, $this->max_value]);

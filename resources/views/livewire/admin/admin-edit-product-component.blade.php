@@ -23,7 +23,7 @@
                     <div class="col-12">
                         <div class="card-header">
                             <div class="row">
-                                <div class="col-md-6">Thêm mới sản phâm</div>
+                                <div class="col-md-6">Cập nhập sản phẩm</div>
                                 <div class="col-md-6">
                                     <a href="{{route('admin.product')}}" class="btn btn-succsess float-end">Tất cả sản phẩm </a>
                                 </div>

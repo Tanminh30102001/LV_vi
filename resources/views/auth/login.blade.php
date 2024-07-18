@@ -46,6 +46,7 @@
                                                     <button type="submit" class="btn btn-fill-out btn-block hover-up" name="login">{{__('Đăng nhập')}}</button>
                                                 </div>
                                             </form>
+                                            <div class="text-muted text-center">{{__('Bạn chưa có tài khoản')}}? <a href="{{route('register')}}">{{__('Đăng kí')}}</a></div>
                                         </div>
                                     </div>
                                 </div>

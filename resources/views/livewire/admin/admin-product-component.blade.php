@@ -58,7 +58,7 @@
             <div class="container">
                 <div class="breadcrumb">
                     <a href="index.html" rel="nofollow">Home</a>
-                    <span></span> All Product
+                    <span></span> Tất cả sản phẩm
 
                 </div>
             </div>
@@ -137,9 +137,9 @@
                                             <td> {{ $item->category->ten }}</td>
                                             <td> {{ $item->created_at }}</td>
                                             <td><a href="{{ route('admin.product.edit', ['product_id' => $item->id]) }}"
-                                                    class="text-success ">Edit </a>
+                                                    class="text-success ">Sửa </a>
                                                 <a href="#" onclick="deleteConfirmation({{ $item->id }})"
-                                                    class="text-danger  ">Delete </a>
+                                                    class="text-danger  ">Xóa </a>
                                             </td>
 
                                         </tr>
@@ -161,10 +161,10 @@
             <div class="modal-body pb-30 pt-30">
                 <div class="row">
                     <div class="col-md-12 text-center">
-                        <h4 class="pb-3">Do you want Delete</h4>
+                        <h4 class="pb-3">Bạn có chắc là xóa sản phẩm chứ </h4>
                         <button type="button" class="btn btn-secondary" data-bs-modal="modal"
-                            data-bs-modal="#deleteConfirmation">Cancel</button>
-                        <button type="button" class="btn btn-danger"onclick="deleteProduct()">delete</button>
+                            data-bs-modal="#deleteConfirmation">Hủy</button>
+                        <button type="button" class="btn btn-danger"onclick="deleteProduct()">Xóa</button>
                     </div>
                 </div>
             </div>

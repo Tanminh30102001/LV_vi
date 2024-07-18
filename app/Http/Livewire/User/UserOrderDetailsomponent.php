@@ -39,13 +39,13 @@ class UserOrderDetailsomponent extends Component
 
             // Đảm bảo sản phẩm tồn tại
             if ($product) {
-                $product->quantity += $orderDetail->quantity;
+                $product->so_luong += $orderDetail->quantity;
                 $product->save();
             }
         }
-        $order->status_delivery='canceled';
+        $order->tinh_trang_giao_hang='canceled';
 
-        $order->reason_cancel=$this->reason_cancel;
+        $order->li_do_huy_don=$this->reason_cancel;
         $order->save();
         
         $this->showForm=false;

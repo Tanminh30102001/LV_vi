@@ -15,7 +15,7 @@
         </div>
         <div class="container">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-6 mt-4">
                     <div class="select">
                         <select class="form-select border border-danger" wire:model="selectedFilter">
                             <option value="">Lọc</option>
@@ -30,7 +30,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 mt-4">
                     <input type="text" class="form-control" placeholder="Tìm kiếm theo tên" wire:model="searchName" />
                 </div>
             </div>

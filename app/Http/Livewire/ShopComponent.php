@@ -117,7 +117,6 @@ $this->chargingPorts = Product::whereNotNull('cong_sac')
     } else {
         $sortedProducts = $query->paginate($this->pageSize);
     }
-    // dd($query->toSql(), $query->getBindings());
     $categories = Category::orderBy('ten', 'ASC')->get();
     if(Auth::check()){
         Cart::instance('cart')->store(Auth::user()->email);

@@ -13,7 +13,7 @@
             <div class="container">
                 <div class="breadcrumb">
                     <a href="index.html" rel="nofollow">Home</a>
-                    <span></span>Thêm mới product
+                    <span></span>Thêm mới sản phẩm
 
                 </div>
             </div>
@@ -29,7 +29,7 @@
                             <div class="row">
                                 <div class="col-md-6">Thêm mới Sản Phẩm</div>
                                 <div class="col-md-6">
-                                    <a href="{{ route('admin.product') }}" class="btn btn-succsess float-end">All Sản
+                                    <a href="{{ route('admin.product') }}" class="btn btn-succsess float-end">Tất cả Sản
                                         Phẩm </a>
                                 </div>
                             </div>

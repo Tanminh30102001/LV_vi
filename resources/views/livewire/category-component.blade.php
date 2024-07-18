@@ -142,48 +142,89 @@
                             </ul>
                         </div>
                         <!-- Fillter By Price -->
-                        {{-- <div class="sidebar-widget price_range range mb-30">
+                        <div class="sidebar-widget price_range range mb-30">
                             <div class="widget-header position-relative mb-20 pb-10">
-                                <h5 class="widget-title mb-10">Fill by price</h5>
+                                <h5 class="widget-title mb-10">{{ __('Lọc theo giá ') }}</h5>
                                 <div class="bt-1 border-color-1"></div>
                             </div>
                             <div class="price-filter">
                                 <div class="price-filter-inner">
-                                    <div id="slider-range"></div>
+                                    <div id="slider-range" wire:ignore></div>
                                     <div class="price_slider_amount">
                                         <div class="label-input">
-                                            <span>Range:</span><input type="text" id="amount" name="price" placeholder="Add Your Price">
+                                            <span>Range:</span><span
+                                                class="text-info">đ{{ $min_value }}</span>-<span
+                                                class="text-info">{{ $max_value }}đ</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div> --}}
-                        <div class="list-group">
-                            <div class="list-group-item mb-10 mt-10">
-                                <label class="fw-900">Color</label>
-                                <div class="custome-checkbox">
-                                    <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox1" value="">
-                                    <label class="form-check-label" for="exampleCheckbox1"><span>Red (56)</span></label>
-                                    <br>
-                                    <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox2" value="">
-                                    <label class="form-check-label" for="exampleCheckbox2"><span>Green (78)</span></label>
-                                    <br>
-                                    <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox3" value="">
-                                    <label class="form-check-label" for="exampleCheckbox3"><span>Blue (54)</span></label>
-                                </div>
-                                <label class="fw-900 mt-15">Item Condition</label>
-                                <div class="custome-checkbox">
-                                    <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox11" value="">
-                                    <label class="form-check-label" for="exampleCheckbox11"><span>New (1506)</span></label>
-                                    <br>
-                                    <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox21" value="">
-                                    <label class="form-check-label" for="exampleCheckbox21"><span>Refurbished (27)</span></label>
-                                    <br>
-                                    <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox31" value="">
-                                    <label class="form-check-label" for="exampleCheckbox31"><span>Used (45)</span></label>
-                                </div>
-                            <a href="shop.html" class="btn btn-sm btn-default"><i class="fi-rs-filter mr-5"></i> Fillter</a>
 
+                        </div>
+                        <div class="list-group">
+                            <div>
+                                <div class="list-group-item mb-10 mt-10">
+                                    <div class="widget-header position-relative">
+                                        <h5 class="widget-title mb-10">{{ __('Lọc nâng cao') }}</h5>
+                                        <div class="bt-1 border-color-1"></div>
+                                    </div>
+                            
+                                    <!-- Screen Type Filter -->
+                                    <label class="fw-900">Loại màn hình</label>
+                                    <select wire:model="selectedScreenType" class="form-select">
+                                        <option value="">{{ __('Chọn loại màn hình') }}</option>
+                                        @foreach ($screenTypes as $type)
+                                            <option value="{{ $type }}">{{ $type }}</option>
+                                        @endforeach
+                                    </select>
+                            
+                                    <!-- Phone Size Filter -->
+                                    <label class="fw-900 mt-15">Kích thước điện thoại</label>
+                                    <select wire:model="selectedPhoneSize" class="form-select">
+                                        <option value="">{{ __('Chọn kích thước') }}</option>
+                                        @foreach ($phoneSizes as $size)
+                                            <option value="{{ $size }}">{{ $size }}</option>
+                                        @endforeach
+                                    </select>
+                            
+                                    <!-- Battery Capacity Filter -->
+                                    <label class="fw-900 mt-15">Dung lượng pin</label>
+                                    <select wire:model="selectedBatteryCapacity" class="form-select">
+                                        <option value="">{{ __('Chọn dung lượng pin') }}</option>
+                                        @foreach ($batteryCapacities as $capacity)
+                                            <option value="{{ $capacity }}">{{ $capacity }}</option>
+                                        @endforeach
+                                    </select>
+                            
+                                    <!-- Charging Power Filter -->
+                                    <label class="fw-900 mt-15">Công suất sạc</label>
+                                    <select wire:model="selectedChargingPower" class="form-select">
+                                        <option value="">{{ __('Chọn công suất sạc') }}</option>
+                                        @foreach ($chargingPowers as $power)
+                                            <option value="{{ $power }}">{{ $power }}</option>
+                                        @endforeach
+                                    </select>
+                            
+                                    <!-- Charging Port Filter -->
+                                    <label class="fw-900 mt-15">Cổng sạc</label>
+                                    <select wire:model="selectedChargingPort" class="form-select">
+                                        <option value="">{{ __('Chọn cổng sạc') }}</option>
+                                        @foreach ($chargingPorts as $port)
+                                            <option value="{{ $port }}">{{ $port }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            
+                                <!-- Display Filtered Products -->
+                                <div class="products mt-15">
+                                    @foreach ($products as $product)
+                                        <div class="product-item">
+                                            <h3>{{ $product->name }}</h3>
+                                            <p>{{ $product->description }}</p>
+                                            <!-- Add other product details here -->
+                                        </div>
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
                         <!-- Product sidebar Widget -->
@@ -198,7 +239,7 @@
                                     <img class="default-img" src="{{asset('assets/imgs/products')}}/{{$newProd->image}}" alt="{{$newProd->ten}}">
                                 </div>
                                 <div class="content pt-10">
-                                    <h5><a href="product-details.html">{{$newProd->ten}}</a></h5>
+                                    <h5><a href="{{route('product.details',['slug'=>$newProd->slug])}}">{{$newProd->ten}}</a></h5>
                                     <p class="price mb-0 mt-5">{{$newProd->gia}}đ</p>
                                    
                                 </div>
@@ -221,3 +262,23 @@
         </section>
     </main>
 </div>
+@push('scripts')
+    <script>
+        var sliderrange = $('#slider-range');
+        var amountprice = $('#amount');
+        $(function() {
+            sliderrange.slider({
+                range: true,
+                min: 0,
+                max: 1000000,
+                values: [0, 1000000],
+                slide: function(event, ui) {
+                    // amountprice.val("$" + ui.values[0] + " - $" + ui.values[1]);
+                    @this.set('min_value', ui.values[0]);
+                    @this.set('max_value', ui.values[1]);
+                }
+            });
+
+        });
+    </script>
+@endpush
