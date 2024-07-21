@@ -11,6 +11,8 @@ class AdminAddAttributeComponent extends Component
     public function updated($fields){
         $this->validateOnly($fields,[
             'name'=>'required'
+        ], [
+            'name.required' => 'Vui lòng nhập tên.',
         ]);
     }
     public function storeAttribute(){

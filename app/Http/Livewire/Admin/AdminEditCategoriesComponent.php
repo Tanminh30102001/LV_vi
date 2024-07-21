@@ -44,12 +44,18 @@ class AdminEditCategoriesComponent extends Component
         $this->validateOnly($fileds,[
             'name'=>'required',
             'slug'=>'required'
+        ],[
+            'name.required' => 'Vui lòng nhập tên.',
+            'slug.required' => 'Vui lòng nhập slug.',
         ]);
     }
     public function updateCategory(){
         $this->validate([
             'name'=>'required',
             'slug'=>'required'
+        ],[
+            'name.required' => 'Vui lòng nhập tên.',
+            'slug.required' => 'Vui lòng nhập slug.',
         ]);
         //dd('ok');
         if($this->scategory_id){

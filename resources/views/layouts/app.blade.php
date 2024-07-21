@@ -145,9 +145,11 @@
                                         <li><a class="active" href="/">{{__('Trang chủ')}} </a></li>
                                         <li><a href="{{route('shop')}}">{{__('Cửa hàng')}} </a></li>                             
                                         <li><a href="{{route('contact-us')}}">{{__('Liên hệ')}} </a></li>
+                                        
                                         @auth
-                                        @if(Auth::user()->utype=='ADM')
-                                        <li><a href="#">Hệ thống<i class="fi-rs-angle-down"></i></a>
+                                       
+                                        <li><a href="#">Tài khoản của bạn<i class="fi-rs-angle-down"></i></a>
+                                            @if(Auth::user()->utype=='ADM')
                                                 <ul class="sub-menu">
                                                     <li><a href="{{route('admin.dashboard')}}">{{__('Trang chủ ADmin')}} </a></li>
                                                     <li><a href="{{route('admin.product')}}">{{__('Quản lý sản phẩm ')}} </a></li>
@@ -160,7 +162,7 @@
                                                     <li><a href="{{route('admin.coupons')}}" >{{__('Quản lý mã giảm giá  ')}} </a></li>                              
                                                 </ul>
                                             @else
-                                            <a href="#">Tài khoản của tôi<i class="fi-rs-angle-down"></i></a>
+                                           
                                             <ul class="sub-menu">
                                                 <li><a href="{{route('user.dashboard.edit',['user_id'=>Auth::user()->id])}}">{{__('Quản lý hồ sơ ')}} </a></li>   
                                                 <li><a href="{{route('user.order')}}">{{__('Quản lý đơn hàng của bạn ')}} </a></li>   

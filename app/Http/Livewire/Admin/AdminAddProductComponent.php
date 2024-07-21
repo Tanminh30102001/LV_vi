@@ -67,7 +67,6 @@ class AdminAddProductComponent extends Component
             'desc' => "required",
             'regular_price' => 'required | numeric ',
             'sale_price' => 'numeric',
-            // 'sku'=>'required',
             'stock_status' => 'required',
             'featured' => 'required',
             'quanity' => 'required',
@@ -81,6 +80,27 @@ class AdminAddProductComponent extends Component
             'thoi_luong_tai_nghe' => 'nullable|string',
             'cong_sac' => 'nullable|string'
 
+        ], [
+            'name.required' => 'Vui lòng nhập tên.',
+            'slug.required' => 'Vui lòng nhập slug.',
+            'short_desc.required' => 'Vui lòng nhập mô tả ngắn.',
+            'desc.required' => 'Vui lòng nhập mô tả.',
+            'regular_price.required' => 'Vui lòng nhập giá gốc.',
+            'regular_price.numeric' => 'Giá gốc phải là số.',
+            'sale_price.numeric' => 'Giá bán phải là số.',
+            'stock_status.required' => 'Vui lòng nhập tình trạng kho.',
+            'featured.required' => 'Vui lòng chọn tính năng nổi bật.',
+            'quanity.required' => 'Vui lòng nhập số lượng.',
+            'image.required' => 'Vui lòng tải lên hình ảnh.',
+            'image.mimes' => 'Hình ảnh phải có định dạng jpg, jpeg, png.',
+            'category_id.required' => 'Vui lòng chọn danh mục.',
+            'keyword.string' => 'Từ khóa phải là chuỗi ký tự.',
+            'man_hinh.string' => 'Thông số màn hình phải là chuỗi ký tự.',
+            'kich_thuoc.string' => 'Kích thước phải là chuỗi ký tự.',
+            'dung_luong_pin.string' => 'Dung lượng pin phải là chuỗi ký tự.',
+            'cong_suat_sac.string' => 'Công suất sạc phải là chuỗi ký tự.',
+            'thoi_luong_tai_nghe.string' => 'Thời lượng tai nghe phải là chuỗi ký tự.',
+            'cong_sac.string' => 'Cổng sạc phải là chuỗi ký tự.'
         ]);
         $product = new Product();
         $product->ten = $this->name;

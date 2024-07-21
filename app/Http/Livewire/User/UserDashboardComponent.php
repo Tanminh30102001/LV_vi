@@ -27,11 +27,19 @@ class UserDashboardComponent extends Component
         
     }
     public function updateUser(){
-        dd(request()->all());
         $this->validate([
             'name' => 'required|string',
-            'phone' => 'required|numeric',
+            'phone' => 'required|numeric|unique:users,phone|max:10',
             'address' => 'required|string',
+        ], [
+            'name.required' => 'Vui lòng nhập tên.',
+            'name.string' => 'Tên phải là chuỗi ký tự.',
+            'phone.required' => 'Vui lòng nhập số điện thoại.',
+            'phone.numeric' => 'Số điện thoại phải là số.',
+            'phone.unique' => 'Số điện thoại đã tồn tại.',
+            'phone.max' => 'Số điện thoại không được vượt quá 10 ký tự.',
+            'address.required' => 'Vui lòng nhập địa chỉ.',
+            'address.string' => 'Địa chỉ phải là chuỗi ký tự.'
         ]);
         $user = Auth::user();
         User::where('id', $user->id)->update([

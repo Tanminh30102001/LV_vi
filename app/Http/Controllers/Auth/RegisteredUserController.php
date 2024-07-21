@@ -68,6 +68,7 @@ class RegisteredUserController extends Controller
 
         return redirect()->back()->withErrors($errors)->withInput();
         }
-        return redirect(RouteServiceProvider::HOME);
+        return redirect()->route('verification.notice');
+        // return redirect(RouteServiceProvider::HOME);
     }
 }

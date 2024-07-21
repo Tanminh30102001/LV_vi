@@ -20,6 +20,15 @@ class AdminAddCouponComponent extends Component
             'gia_tri'=>'required|numeric',
             'gia_tri_gio_hang'=>'required|numeric',
             'expiry_date'=>'required',
+        ], [
+            'ma_phieu.required' => 'Vui lòng nhập mã phiếu.',
+            'ma_phieu.unique' => 'Mã phiếu đã tồn tại.',
+            'loai.required' => 'Vui lòng chọn loại.',
+            'gia_tri.required' => 'Vui lòng nhập giá trị.',
+            'gia_tri.numeric' => 'Giá trị phải là số.',
+            'gia_tri_gio_hang.required' => 'Vui lòng nhập giá trị giỏ hàng.',
+            'gia_tri_gio_hang.numeric' => 'Giá trị giỏ hàng phải là số.',
+            'expiry_date.required' => 'Vui lòng nhập ngày hết hạn.'
         ]);
     }
     public function storeCoupon(){
@@ -29,6 +38,15 @@ class AdminAddCouponComponent extends Component
             'gia_tri'=>'required|numeric',
             'gia_tri_gio_hang'=>'required|numeric',
             'expiry_date'=>'required',
+        ] ,[
+            'ma_phieu.required' => 'Vui lòng nhập mã phiếu.',
+            'ma_phieu.unique' => 'Mã phiếu đã tồn tại.',
+            'loai.required' => 'Vui lòng chọn loại.',
+            'gia_tri.required' => 'Vui lòng nhập giá trị.',
+            'gia_tri.numeric' => 'Giá trị phải là số.',
+            'gia_tri_gio_hang.required' => 'Vui lòng nhập giá trị giỏ hàng.',
+            'gia_tri_gio_hang.numeric' => 'Giá trị giỏ hàng phải là số.',
+            'expiry_date.required' => 'Vui lòng nhập ngày hết hạn.'
         ]);
         $coupon = new Coupon();
         $coupon->ma_phieu=$this->ma_phieu;

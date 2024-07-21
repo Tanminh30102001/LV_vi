@@ -65,7 +65,7 @@ use Illuminate\Support\Facades\Session;
 //     'verify'=>true
 // ]);
 Route::get('/',HomeComponent::class)->name('home.index');
-Route::get('/shop',ShopComponent::class)->name('shop')->middleware('verified');
+Route::get('/shop',ShopComponent::class)->name('shop');
 Route::get('/cart',CartComponent::class)->name('shop.cart')->middleware('verified');
 Route::get('/checkout',CheckOutComponent::class)->name('shop.checkout')->middleware('verified');
 // Route::middleware('auth')->group(function () {

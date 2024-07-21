@@ -98,6 +98,10 @@ class CheckOutComponent extends Component
     $this->validate([
         'user_phone' => "required|numeric",
         "user_address" => "required",
+    ], [
+        'user_phone.required' => 'Vui lòng nhập số điện thoại.',
+        'user_phone.numeric' => 'Số điện thoại phải là số.',
+        'user_address.required' => 'Vui lòng nhập địa chỉ.',
     ]);
 
     // Tạo đơn hàng mới

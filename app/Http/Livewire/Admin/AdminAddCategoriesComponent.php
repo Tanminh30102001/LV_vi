@@ -26,6 +26,10 @@ class AdminAddCategoriesComponent extends Component
             'slug'=>'required',
              'image'=>'required',
 
+        ], [
+            'name.required' => 'Vui lòng nhập tên.',
+            'slug.required' => 'Vui lòng nhập slug.',
+            'image.required' => 'Vui lòng tải lên hình ảnh.'
         ]);
     }
     public function storeCategory(){
@@ -33,6 +37,10 @@ class AdminAddCategoriesComponent extends Component
             'name'=>'required',
             'slug'=>'required',
             'image'=>'required',
+        ], [
+            'name.required' => 'Vui lòng nhập tên.',
+            'slug.required' => 'Vui lòng nhập slug.',
+            'image.required' => 'Vui lòng tải lên hình ảnh.'
         ]);
         if($this->category_id){
             $scategory=new Subcategory();

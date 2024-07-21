@@ -19,6 +19,14 @@ class ContactComponent extends Component
             'email'=>'required|email',
             'subject'=>'required',
             'content'=>'required'
+        ] ,[
+            'name.required' => 'Vui lòng nhập tên.',
+            'phone.required' => 'Vui lòng nhập số điện thoại.',
+            'phone.regex' => 'Số điện thoại phải là số',
+            'email.required' => 'Vui lòng nhập email.',
+            'email.email' => 'Email không đúng định dạng.',
+            'subject.required' => 'Vui lòng nhập chủ đề.',
+            'content.required' => 'Vui lòng nhập nội dung.'
         ]);
     }
     public function sendMessage(){
@@ -28,6 +36,15 @@ class ContactComponent extends Component
             'email'=>'required|email',
             'subject'=>'required',
              'content'=>'required | max:255'
+        ], [
+            'name.required' => 'Vui lòng nhập tên.',
+            'phone.required' => 'Vui lòng nhập số điện thoại.',
+            'phone.regex' => 'Số điện thoại phải là số.',
+            'email.required' => 'Vui lòng nhập email.',
+            'email.email' => 'Email không đúng định dạng.',
+            'subject.required' => 'Vui lòng nhập chủ đề.',
+            'content.required' => 'Vui lòng nhập nội dung.',
+            'content.max' => 'Nội dung không được vượt quá 255 ký tự.'
         ]);
         $contact= new Contact();
         $contact->ten=$this->name;

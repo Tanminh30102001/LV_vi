@@ -18,12 +18,18 @@ class UserReviewComponent extends Component
         $this->validateOnly($fields,[
             'rating'=>"required",
             'comment'=>"required"
+        ], [
+            'rating.required' => 'Vui lòng nhập đánh giá.',
+            'comment.required' => 'Vui lòng nhập bình luận.'
         ]);
     }
     public function addReview(){
         $this->validate([
             'rating'=>"required",
             'comment'=>"required"
+        ], [
+            'rating.required' => 'Vui lòng nhập đánh giá.',
+            'comment.required' => 'Vui lòng nhập bình luận.'
         ]);
         $review=new Review();
         $review->rating=$this->rating;

@@ -23,9 +23,16 @@ class AdminAddHomeSliderComponent extends Component
             'title' => "required",
             'sub_title'=>"required|min:10",
              'offer'=>"required",
-             
              'link'=>"required",
              'image'=>"required"
+        ], [
+            'top_title.required' => 'Vui lòng nhập tiêu đề trên cùng.',
+            'title.required' => 'Vui lòng nhập tiêu đề.',
+            'sub_title.required' => 'Vui lòng nhập phụ đề.',
+            'sub_title.min' => 'Phụ đề phải có ít nhất 10 ký tự.',
+            'offer.required' => 'Vui lòng nhập đề xuất.',
+            'link.required' => 'Vui lòng nhập liên kết.',
+            'image.required' => 'Vui lòng tải lên hình ảnh.'
         ]);
         $slide=new HomeSlider();
         $slide->top_title=$this->top_title;
