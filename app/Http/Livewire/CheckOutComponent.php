@@ -19,6 +19,7 @@ class CheckOutComponent extends Component
 {
 
     public $user_name;
+    public $user_email;
     public $user_phone;
     public $user_address;
     public $notes;
@@ -29,15 +30,19 @@ class CheckOutComponent extends Component
     public $subtotalAfterDiscount;
     public $totalAfterDiscount;
 
-    public function updated($field)
-    {
-        $this->validateOnly($field, [
+    // public function updated($field)
+    // {
+    //     $this->validateOnly($field, [
 
-            'user_name' => 'required',
-            'user_phone' => "required|numeric",
-            "user_address" => "required",
-        ]);
-    }
+    //         'user_name' => 'required',
+    //         'user_phone' => "required|numeric",
+    //         "user_address" => "required",
+    //     ], [
+    //         'user_phone.required' => 'Vui lòng nhập số điện thoại.',
+    //         'user_phone.numeric' => 'Số điện thoại phải là số.',
+    //         'user_address.required' => 'Vui lòng nhập địa chỉ.',
+    //     ]);
+    // }
 
     public function removeCoupon()
     {
@@ -95,20 +100,21 @@ class CheckOutComponent extends Component
     }
     public function placeOrder()
 {
-    $this->validate([
-        'user_phone' => "required|numeric",
-        "user_address" => "required",
-    ], [
-        'user_phone.required' => 'Vui lòng nhập số điện thoại.',
-        'user_phone.numeric' => 'Số điện thoại phải là số.',
-        'user_address.required' => 'Vui lòng nhập địa chỉ.',
-    ]);
+   
+    // $this->validate([
+    //     'user_phone' => "required|numeric",
+    //     "user_address" => "required",
+    // ], [
+    //     'user_phone.required' => 'Vui lòng nhập số điện thoại.',
+    //     'user_phone.numeric' => 'Số điện thoại phải là số.',
+    //     'user_address.required' => 'Vui lòng nhập địa chỉ.',
+    // ]);
 
     // Tạo đơn hàng mới
     $order = new Order();
     $order->user_id = Auth::user()->id;
     $order->ma_don_hang = rand(1000, 999999999);
-
+    
     // Tính toán tổng tiền, giảm giá, và tạm tính
     if (session()->has('coupon')) {
         $order->tong_tien = str_replace(',', '', session()->get('checkout')['total']);
@@ -119,17 +125,22 @@ class CheckOutComponent extends Component
         $order->giam_gia = session()->get('checkout')['discount'] ?? 0;
         $order->tam_tinh = Cart::instance('cart')->subtotal();
     }
-
+    
     // Thông tin người dùng và ghi chú
-    $order->email = Auth::user()->email;
-    $order->user_ten = Auth::user()->ten;
+    if($this->user_address == '') $this->user_address = Auth::user()->dia_chi;
+    if($this->user_phone == '') $this->user_phone = Auth::user()->sdt;
+    if($this->user_name == '') $this->user_name = Auth::user()->ten;
+    if($this->user_email == '') $this->user_email = Auth::user()->email;
+
+    $order->email = $this->user_email;
+    $order->user_ten = $this->user_name;
     $order->user_sdt = $this->user_phone;
     $order->user_diachi = $this->user_address;
     $order->ghi_chu = $this->notes;
     $order->trang_thai = false; 
 
     $order->save();
-
+  
 
     foreach (Cart::instance('cart')->content() as $item) {
         $product = Product::find($item->id);

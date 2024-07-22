@@ -49,6 +49,7 @@
                             <thead>
                                 <tr class="main-heading">
                                     <th scope="col">Image</th>
+                                    <th> Mã sản phẩm</th>
                                     <th scope="col">Tên sản phẩm</th>
                                     <th scope="col">Giá</th>
                                     <th scope="col">Số lương</th>
@@ -68,6 +69,7 @@
                                         <td class="image product-thumbnail"><img
                                                 src="{{ asset('assets/imgs/products') }}/{{ $item->product->image }}"
                                                 alt="#"></td>
+                                                <td> {{ $item->product->ma_sp }}</td>
                                         <td class="product-des product-name">
                                             <h5 class="product-name"><a
                                                     href="{{ route('product.details', ['slug' => $item->product->slug]) }}">{{ $item->product->ten }}</a>

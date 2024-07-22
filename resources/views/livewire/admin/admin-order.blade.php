@@ -64,8 +64,8 @@
                                 </div>
                                 <div class="col-md-2">
                                     <select class="form-select border border-danger" wire:model="selectedFilter">
-
-                                        <option value="newest" selected>Đơn hàng mới nhất</option>
+                                        <option value="" selected>Lọc </option>
+                                        <option value="newest" >Đơn hàng mới nhất</option>
                                         <option value="oldest">Đơn hàng trễ nhất</option>
                                         <option value="lowest_price">Tổng tiền từ thấp tới cao</option>
                                         <option value="highest_price">Tổng tiền từ cao tới thấp</option>
@@ -114,6 +114,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Mã đơn hàng</th>
+                                        <th>Ngày đặt</th>
                                         <th>Tình trạng đơn hàng</th>
                                         <th>Tình trạng giao hàng</th>
                                         <th>Tổng tiền</th>
@@ -135,6 +136,8 @@
                                         <tr>
                                             <td>{{ ++$i }}.</td>
                                             <td>{{ $item->ma_don_hang }}</td>
+                                            <td>{{ $item->created_at }}</td>
+
                                             <td>
                                                 @if ($item->trang_thai == 1)
                                                     <span class="badge badge-success">Đã thanh toán</span>
@@ -170,7 +173,7 @@
                                                         <button class="btn btn-success dropdown-toggle" type="button"
                                                             id="dropdownMenuButton{{ $item->id }}"
                                                             data-bs-toggle="dropdown" aria-expanded="false">
-                                                            Giao hàng
+                                                            Cập nhập đơn hàng
                                                         </button>
                                                         <ul class="dropdown-menu"
                                                             aria-labelledby="dropdownMenuButton{{ $item->id }}">

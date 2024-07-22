@@ -8,8 +8,8 @@
         <div class="row">
             
             <div class="col-md-12 text-center"> 
-                <h1>Thank you for Ordered</h1>
-                <a href="{{route('shop')}}">Continue Shopping</a>
+                <h1>Cảm ơn vì đã đặt hàng tại cửa hàng của chúng tôi</h1>
+                <a href="{{route('shop')}}">Tiếp tục mua sắm</a>
             </div>
         </div>
     </div>

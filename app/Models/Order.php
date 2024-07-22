@@ -18,9 +18,9 @@ class Order extends Model
     public function translateTinhTrangGiaoHang($value){
         switch ($value) {
             case 'ordered':
-                return 'Đã đặt hàng';
+                return 'Đang chờ xác nhận';
             case 'accepted':
-                return 'Đã chấp nhận';
+                return 'Đã xác nhận';
             case 'delivering':
                 return 'Đang giao hàng';
             case 'delivered':

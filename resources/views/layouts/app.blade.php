@@ -369,12 +369,24 @@
                             <h5 class="widget-title wow fadeIn animated">{{__('Tài khoản của tôi')}} </h5>
                             <ul class="footer-list wow fadeIn animated">
                                     @if(Auth::check())
-                                         <li><a href="{{route('user.dashboard.edit',['user_id'=>Auth::user()->id])}}">My Account</a></li>   
+                                         <li><a href="{{route('user.dashboard.edit',['user_id'=>Auth::user()->id])}}">Tài khoản của tôi</a></li>   
                                     @endif
+                                    @if(Auth::user()->utype=='ADM')
+                                    <li><a href="{{route('admin.dashboard')}}">{{__('Trang chủ ADmin')}} </a></li>
+                                    <li><a href="{{route('admin.product')}}">{{__('Quản lý sản phẩm ')}} </a></li>
+                                    <li><a href="{{route('admin.categories')}}"> {{__('Quản lý Danh mục ')}} </a></li>
+                                    <li><a href="{{route('admin.home.slider')}}">{{__('Quản lý banner')}} </a> </li>
+                                    <li><a href="{{route('admin.order')}}">{{__('Quản lý Đơn hàng ')}} </a></li>
+                                    <li><a href="{{route('admin.contact')}}">{{__('Quản lý Liên hệ ')}} </a></li>
+                                    <li><a href="{{route('admin.user')}}" >{{__('Quản lý khách hàng')}} </a></li>   
+                                    <li><a href="{{route('admin.attribute')}}" >{{__('Quản lý các thuộc tính  sản phẩm ')}} </a></li>   
+                                    <li><a href="{{route('admin.coupons')}}" >{{__('Quản lý mã giảm giá  ')}} </a></li>                              
+                                    @else
                                 <li><a href="{{route('shop.cart')}}">{{__('Xem giỏ hàng ')}} </a></li>
                                 <li><a href="{{route('shop.wishlist')}}">{{__('Xem danh sách yêu thích')}} </a></li>
                                 <li><a href="{{route('user.order')}}">{{__('Theo dõi đơn hàng của tôi')}}  </a></li>                            
                                 <li><a href="{{route('user.order')}}">{{__('Quản lý các đơn hàng')}} </a></li>
+                               @endif
                             </ul>
                         </div>
                         <div class="col-lg-4 mob-center">

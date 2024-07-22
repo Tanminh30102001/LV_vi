@@ -94,7 +94,7 @@ class AdminOrder extends Component
         }
 
         // Sắp xếp theo ngày tạo giảm dần
-        $orders = $query->paginate(10);
+        $orders = $query->orderBy('created_at', 'desc')->paginate(10);
             
         return view('livewire.admin.admin-order', ['orders' => $orders]);
     }

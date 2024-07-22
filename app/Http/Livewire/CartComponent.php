@@ -16,17 +16,18 @@ class CartComponent extends Component
     public $subtotalAfterDiscount;
     public $totalAfterDiscount;
 
+    
     public function increaseQuantity($rowId){
     $product = Cart::instance('cart')->get($rowId);
     $qty=$product->qty+1;
     $productInDB = Product::find($product->id);
-
-    if ($qty <= $productInDB->so_luong) {
-        Cart::instance('cart')->update($rowId, $qty);
-        $this->emitTo('cart-icon-component', 'refreshcomponent');
-    } else {
-        session()->flash('error', 'Không thể tăng số lượng vượt quá số lượng sản phẩm hiện có.');
-    }
+    
+    if ($qty > $productInDB->so_luong) {
+        return session()->flash('error_qty', 'Không thể tăng số lượng vượt quá số lượng sản phẩm hiện có.');
+        
+    } 
+    Cart::instance('cart')->update($rowId, $qty);
+    $this->emitTo('cart-icon-component', 'refreshcomponent');
     }
     public function decreaseQuantity($rowId){
         $product = Cart::instance('cart')->get($rowId);
