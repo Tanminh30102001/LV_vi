@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "45d162d876ad9a0dc28ea6e04c45600e",
+    "content-hash": "a9a4a1516604c5c2739ea446a5477af4",
     "packages": [
         {
             "name": "arielmejiadev/larapex-charts",
@@ -69,6 +69,68 @@
                 "source": "https://github.com/ArielMejiaDev/larapex-charts/tree/8.1.0"
             },
             "time": "2024-02-08T16:17:30+00:00"
+        },
+        {
+            "name": "asantibanez/livewire-charts",
+            "version": "v2.4.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/asantibanez/livewire-charts.git",
+                "reference": "66ce742311ebe9fa01ec29629101e4176f9f0f81"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/asantibanez/livewire-charts/zipball/66ce742311ebe9fa01ec29629101e4176f9f0f81",
+                "reference": "66ce742311ebe9fa01ec29629101e4176f9f0f81",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^7.0|^8.0|^9.0",
+                "livewire/livewire": "^2.3",
+                "php": "^7.2|^7.3|^7.4|^8.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^5.0|^6.0|^7.0",
+                "phpunit/phpunit": "^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Asantibanez\\LivewireCharts\\LivewireChartsServiceProvider"
+                    ],
+                    "aliases": {
+                        "LivewireCharts": "Asantibanez\\LivewireCharts\\LivewireChartsFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Asantibanez\\LivewireCharts\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andrés Santibáñez",
+                    "email": "santibanez.andres@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Livewire Charts",
+            "homepage": "https://github.com/asantibanez/livewire-charts",
+            "keywords": [
+                "asantibanez",
+                "livewire-charts"
+            ],
+            "support": {
+                "issues": "https://github.com/asantibanez/livewire-charts/issues",
+                "source": "https://github.com/asantibanez/livewire-charts/tree/v2.4.2"
+            },
+            "time": "2023-02-01T17:38:11+00:00"
         },
         {
             "name": "brick/math",

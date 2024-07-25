@@ -371,7 +371,7 @@
                                     @if(Auth::check())
                                          <li><a href="{{route('user.dashboard.edit',['user_id'=>Auth::user()->id])}}">Tài khoản của tôi</a></li>   
                                     @endif
-                                    @if(Auth::user()->utype=='ADM')
+                                    @if(Auth::check()&&Auth::user()->utype=='ADM')
                                     <li><a href="{{route('admin.dashboard')}}">{{__('Trang chủ ADmin')}} </a></li>
                                     <li><a href="{{route('admin.product')}}">{{__('Quản lý sản phẩm ')}} </a></li>
                                     <li><a href="{{route('admin.categories')}}"> {{__('Quản lý Danh mục ')}} </a></li>
@@ -456,6 +456,8 @@
     <script src="{{asset('assets/js/shop.js?v=3.3')}}"></script>
 
     @livewireScripts
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     @stack('scripts')
     
     </body>
