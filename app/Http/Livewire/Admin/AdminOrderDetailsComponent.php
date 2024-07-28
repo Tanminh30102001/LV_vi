@@ -13,7 +13,11 @@ class AdminOrderDetailsComponent extends Component
     }
     public function render()
     {
-        $order=Order::find($this->order_id);
+        $order = Order::with(['orderDetails' => function ($query) {
+            $query->withTrashed()->with(['product' => function ($q) {
+                $q->withTrashed();
+            }]);
+        }])->find($this->order_id);
         return view('livewire.admin.admin-order-details-component',['order'=>$order]);
     }
 }
