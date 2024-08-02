@@ -16,6 +16,15 @@ class AdminCategoriesComponent extends Component
        
         $category=Category::find($this->category_id);
         // unlink('asset/imgs/category/'.$category->image);
+        if (!$category) {
+            session()->flash('error', 'Không tìm thấy danh mục.');
+            return;
+        }
+    
+        if ($category->products()->exists()) {
+            session()->flash('error', 'Danh mục này không thể bị xóa do có chứa sản phẩm.');
+            return;
+        }
         $category->delete();
         session()->flash('message','Deleted');
     }

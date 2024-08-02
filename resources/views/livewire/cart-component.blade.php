@@ -45,8 +45,7 @@
                                         <td class="image product-thumbnail"><img src="{{asset('assets/imgs/products')}}/{{$item->model->image}}" alt="#"></td>
                                         <td class="product-des product-name">
                                             <h5 class="product-name"><a href="{{route('product.details',['slug'=>$item->model->slug])}}">{{$item->model->ten}}</a></h5>
-                                            {{-- <p class="font-xs">Maboriosam in a tonto nesciung eget<br> distingy magndapibus.
-                                            </p> --}}
+                                            
                                         </td>
 
                                         {{-- @if(!empty($item->options))

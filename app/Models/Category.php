@@ -12,6 +12,10 @@ class Category extends Model
     protected $fillable=[
         'ten'
     ];
+    public function products()
+    {
+        return $this->hasMany(Product::class,'danh_muc_id');
+    }
     public function subCategories(){
         return $this->hasMany(Subcategory::class,'category_id');
     }

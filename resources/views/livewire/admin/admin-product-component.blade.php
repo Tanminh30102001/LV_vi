@@ -65,6 +65,9 @@
         </div>
         <section class="mt-50 mb-50">
             <div class="container">
+                @if (Session::has('error'))
+                        <div class="alert alert-danger" role="alert"> {{ Session::get('error') }}</div>
+                    @endif
                 <div class="row">
                     <div class="col-12">
                         <div class="card-header">

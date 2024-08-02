@@ -16,7 +16,7 @@ public $selectedFilter;
     if ($this->searchName) {
         $usersQuery->where(function ($query) {
             $query->where('ten', 'like', '%' . $this->searchName . '%')
-                  ->orWhere('email', 'like', '%' . $this->searchName . '%');
+                  ->orWhere('email', 'like', '%' . $this->searchName . '%')->where('utype','USR');
         });
     }
 

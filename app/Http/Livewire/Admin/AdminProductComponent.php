@@ -19,6 +19,10 @@ class AdminProductComponent extends Component
 
         $product=Product::find($this->product_id);
         // unlink('assets/imgs/products/'.$product->image);
+        if ($product->orderDetails()->exists()) {
+            session()->flash('error', 'Sản phẩm này không thể bị xóa do có chứa ở trong đơn hàng.');
+            return;
+        }
         $product->delete();
         session()->flash('message','Product Deleted Successfully');
     }

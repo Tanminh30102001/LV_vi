@@ -63,13 +63,13 @@ class AdminAddProductComponent extends Component
         $this->validate([
             'name' => 'required',
             'slug' => 'required',
-            'short_desc' => "required| ",
+            'short_desc' => "required ",
             'desc' => "required",
-            'regular_price' => 'required | numeric ',
-            'sale_price' => 'numeric',
+            'regular_price' => 'required | numeric |min:0 ',
+            'sale_price' => 'numeric|min:0',
             'stock_status' => 'required',
             'featured' => 'required',
-            'quanity' => 'required',
+            'quanity' => 'required|numeric|min:0',
             'image' => 'required|mimes:jpg,jpeg,png',
             'category_id' => 'required',
             'keyword' => 'nullable|string',
@@ -81,6 +81,9 @@ class AdminAddProductComponent extends Component
             'cong_sac' => 'nullable|string'
 
         ], [
+            'regular_price.min' => 'Giá gốc không được nhỏ hơn 0.',
+            'sale_price.min' => 'Giá bán không được nhỏ hơn 0.',
+            'quanity.min'=>'Số lượng không được nhỏ hơn 0',
             'name.required' => 'Vui lòng nhập tên.',
             'slug.required' => 'Vui lòng nhập slug.',
             'short_desc.required' => 'Vui lòng nhập mô tả ngắn.',
@@ -102,6 +105,10 @@ class AdminAddProductComponent extends Component
             'thoi_luong_tai_nghe.string' => 'Thời lượng tai nghe phải là chuỗi ký tự.',
             'cong_sac.string' => 'Cổng sạc phải là chuỗi ký tự.'
         ]);
+        if($this->sale_price >$this->regular_price){
+            session()->flash('error', 'Giá sale không được lớn hơn giá gốc');
+            return;
+        }
         $product = new Product();
         $product->ten = $this->name;
         $product->slug = $this->slug;

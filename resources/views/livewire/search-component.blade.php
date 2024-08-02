@@ -93,9 +93,9 @@
                                    
                                     <div class="product-content-wrap mt-3">
                                         <div class="product-category">
-                                            <a href="shop.html">{{$item->category->ten}}</a>
+                                            <a href="{{ route('product.category', ['slug' => $item->category->slug]) }}">{{$item->category->ten}}</a>
                                         </div>
-                                        <h2><a href="product-details.html">{{$item->ten}}</a></h2>
+                                        <h2><a href="{{route("product.details",['slug'=>$item->slug])}}">{{$item->ten}}</a></h2>
                                         <div class="rating-result" title="100%">
                                             
                                             <span>
